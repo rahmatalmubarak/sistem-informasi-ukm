@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use App\Models\StatusLaporan;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LaporanController extends Controller
 {
@@ -46,30 +48,29 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         try {
-            DB::transaction();
             $request->validate([
-                'judul' => 'required',
+                'ormawa_id' => 'required',
                 'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
             ]);
             $file = $request->file('file');
-            $file->storeAs('public/img/data/', $file->hashName());
+            $fileName = explode('.', $file->getClientOriginalName())[0];
+            $file->storeAs('public/file/data/', $file->hashName());
             Laporan::create([
-                'judul' => $request->judul,
+                'judul' => $fileName,
                 'file' => $file->hashName(),
-                'deskripsi' => $request->deskripsi,
+                'ormawa_id' => $request->ormawa_id,
             ]);
 
             $data = Laporan::latest('created_at')->first();
             StatusLaporan::create([
                 'laporan_id' => $data->id,
-                'konfirmasi' => 0
+                'status' => 0
             ]);
-            DB::commit();
-            return redirect()->route('laporan.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('laporan.create');
-            //throw $th;
+            // DB::commit();
+            Alert::success('Berhasil', 'Data Berhasil Disimpan!');
+            return redirect()->route('laporan.index');
+        } catch (Exception $th) {
+            // DB::rollBack();
         }
     }
 
@@ -83,7 +84,7 @@ class LaporanController extends Controller
     {
         $laporan = Laporan::find($id);
 
-        return view('dashboard.laporan.detail', compact('laporan'));
+        return response()->json($laporan);
     }
 
     /**
@@ -109,30 +110,25 @@ class LaporanController extends Controller
     public function update(Request $request, $id)
     {
         $laporan = Laporan::find($id);
-        $request->validate([
-            'judul' => 'required',
-            'file' => 'mimes:docx,doc,pdf,xlsx|max:10000',
-        ]);
 
         if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
+            ]);
             $file = $request->file('file');
+            $fileName = explode('.', $file->getClientOriginalName())[0];
             $file->storeAs('public/file/data/', $file->hashName());
 
             Storage::delete('public/file/data/' . $laporan->file);
 
             $laporan->update([
-                'nama' => $request->nama,
+                'judul' => $fileName,
                 'file' => $file->hashName(),
-                'deskripsi' => $request->deskripsi
-            ]);
-        } else {
-            $laporan->update([
-                'nama' => $request->nama,
-                'deskripsi' => $request->deskripsi
             ]);
         }
-
-        return redirect()->route('laporan.index')->with(['success' => 'Data Berhasil Diubah!']);
+        Alert::success('Berhasil', 'Data Berhasil Diubah!');
+        return redirect()->route('laporan.index');
+        
     }
 
     /**
@@ -146,7 +142,8 @@ class LaporanController extends Controller
         $laporan = Laporan::find($id);
         Storage::delete('public/file/data/' . $laporan->file);
         Laporan::destroy($id);
-        return redirect()->route('laporan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Berhasil', 'Data Berhasil Dihapus!');
+        return redirect()->route('laporan.index');
     }
 
     public function download($id)
@@ -155,5 +152,8 @@ class LaporanController extends Controller
         return Storage::download('public/file/data/' . $laporan->file);
     }
 
+    public function updateStatus(Request $request, $id){
+        $laporan = Laporan::find($id);
 
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('status_laporans', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('laporan_id')->unsigned();
-            $table->boolean('konfirmasi');
+            $table->boolean('status');
             $table->text('catatan')->nullable();
             $table->string('sk',100)->nullable();
             $table->timestamps();

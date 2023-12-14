@@ -16,7 +16,7 @@ class StatusLaporan extends Model
      */
     protected $fillable = [
         'laporan_id',
-        'konfirmasi',
+        'status',
         'catatan',
         'sk',
     ];

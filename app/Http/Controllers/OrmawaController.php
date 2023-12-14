@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ormawa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrmawaController extends Controller
 {
@@ -16,23 +18,15 @@ class OrmawaController extends Controller
     public function index()
     {
         $ormawa_list = Ormawa::paginate(10);
-        return view('dashboard.ormawa.index', compact('ormawa_list'));
+        $admin_list = User::where('role_id', 2)->get();
+
+        return view('dashboard.ormawa.index', compact('ormawa_list', 'admin_list'));
     }
 
     public function cari(Request $request)
     {
         $ormawa_list = Ormawa::where('nama', 'LIKE', '%'.$request->cari.'%')->paginate(10);
         return view('dashboard.ormawa.index', compact('ormawa_list'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.ormawa.create');
     }
 
     /**
@@ -43,23 +37,24 @@ class OrmawaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate([
             'nama' => 'required',
+            'admin' => 'required',
             'logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
-            'tgl_berdiri' => 'required',
+            'deskripsi' => 'required',
         ]);
+
         $image = $request->file('logo');
-        $image->storeAs('public/img/data/', $image->hashName());
+        $image->storeAs('public/img/assets/', $image->hashName());
         Ormawa::create([
             'nama' => $request->nama,
             'logo' => $image->hashName(),
-            'tentang' => $request->tentang,
-            'tgl_berdiri' => $request->tgl_berdiri,
-            'tag_line' => $request->tag_line
+            'deskripsi' => $request->deskripsi,
+            'user_id' => $request->admin
         ]);
-
-        return redirect()->route('ormawa.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+        Alert::success('Sukses', 'Ormawa berhasil ditambahkan');
+        return redirect()->route('ormawa.index');
     }
 
     /**
@@ -72,7 +67,8 @@ class OrmawaController extends Controller
     {
         $ormawa = Ormawa::find($id);
 
-        return view('dashboard.ormawa.detail', compact('ormawa'));
+        return response()->json($ormawa);
+        // return view('dashboard.ormawa.detail', compact('ormawa'));
     }
 
     /**
@@ -101,32 +97,32 @@ class OrmawaController extends Controller
         $request->validate([
             'nama' => 'required',
             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
-            'tgl_berdiri' => 'required',
+            'deskripsi' => 'required',
+            'admin' => 'required'
         ]);
-
+        
         if($request->hasFile('logo')){
             $image = $request->file('logo');
-            $image->storeAs('public/img/data/', $image->hashName());
+            $image->storeAs('public/img/assets/', $image->hashName());
 
-            Storage::delete('public/img/data/' . $ormawa->logo);
+            Storage::delete('public/img/assets/' . $ormawa->logo);
             
             $ormawa->update([
                 'nama' => $request->nama,
-                'tentang' => $request->tentang,
+                'deskripsi' => $request->deskripsi,
                 'logo' => $image->hashName(),
-                'tgl_berdiri' => $request->tgl_berdiri,
-                'tag_line' => $request->tag_line
+                'user_id' => $request->admin
             ]);
         }else{
             $ormawa->update([
                 'nama' => $request->nama,
-                'tentang' => $request->tentang,
-                'tgl_berdiri' => $request->tgl_berdiri,
-                'tag_line' => $request->tag_line
+                'deskripsi' => $request->deskripsi,
+                'user_id' => $request->admin
             ]);
         }
 
-        return redirect()->route('ormawa.index')->with(['success' => 'Data Berhasil Diubah!']);
+        Alert::success('Sukses', 'Data Berhasil Diubah!');
+        return redirect()->route('ormawa.index');
     }
 
     /**
@@ -138,9 +134,10 @@ class OrmawaController extends Controller
     public function destroy($id)
     {
         $ormawa = Ormawa::find($id);
-        Storage::delete('public/img/data/' . $ormawa->logo);
+        Storage::delete('public/img/assets/' . $ormawa->logo);
         Ormawa::destroy($id);
-        return redirect()->route('ormawa.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Sukses', 'Data Berhasil Dihapus!');
+        return redirect()->route('ormawa.index');
     }
 
 

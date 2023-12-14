@@ -27,16 +27,6 @@ class ArsipController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.arsip.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,6 +37,7 @@ class ArsipController extends Controller
         $request->validate([
             'nama' => 'required',
             'ormawa_id' => 'required',
+            'tgl_upload' => 'required',
             'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
         ]);
         $file = $request->file('file');
@@ -55,6 +46,7 @@ class ArsipController extends Controller
             'nama' => $request->nama,
             'file' => $file->hashName(),
             'ormawa_id' => $request->ormawa_id,
+            'tgl_upload' => $request->tgl_upload,
         ]);
         
         return redirect()->route('arsip.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -74,19 +66,6 @@ class ArsipController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $arsip = Arsip::find($id);
-
-        return view('dashboard.arsip.edit', compact('arsip'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -98,8 +77,9 @@ class ArsipController extends Controller
         $arsip = Arsip::find($id);
         $request->validate([
             'nama' => 'required',
-            'file' => 'mimes:docx,doc,pdf,xlsx|max:10000',
             'ormawa_id' => 'required',
+            'tgl_upload' => 'required',
+            'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
         ]);
 
         if ($request->hasFile('file')) {
@@ -111,12 +91,14 @@ class ArsipController extends Controller
             $arsip->update([
                 'nama' => $request->nama,
                 'file' => $file->hashName(),
-                'ormawa_id' => $request->ormawa_id
+                'ormawa_id' => $request->ormawa_id,
+                'tgl_upload' => $request->tgl_upload,
             ]);
         } else {
             $arsip->update([
                 'nama' => $request->nama,
-                'ormawa_id' => $request->ormawa_id
+                'ormawa_id' => $request->ormawa_id,
+                'tgl_upload' => $request->tgl_upload,
             ]);
         }
 

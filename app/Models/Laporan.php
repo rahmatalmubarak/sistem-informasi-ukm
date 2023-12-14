@@ -17,7 +17,7 @@ class Laporan extends Model
     protected $fillable = [
         'judul',
         'file',
-        'deskripsi',
+        'ormawa_id'
     ];
 
     public function statusLaporan(){

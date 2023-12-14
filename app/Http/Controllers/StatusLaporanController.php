@@ -34,9 +34,8 @@ class StatusLaporanController extends Controller
      */
     public function show($id)
     {
-        $laporan = Laporan::find($id);
-
-        return view('dashboard.status_laporan.detail', compact('laporan'));
+        $status_laporan = StatusLaporan::where('laporan_id', $id)->first();
+        return response()->json($status_laporan);
     }
 
     /**
@@ -82,5 +81,61 @@ class StatusLaporanController extends Controller
             ]);
         }
         return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
+    }
+
+    public function download($id)
+    {
+        $statusLaporan = StatusLaporan::find($id);
+        return Storage::download('public/sk/data/' . $statusLaporan->sk);
+    }
+
+    public function updateCatatan(Request $request, $id)
+    {
+        $request->validate([
+            'catatan' => 'required'
+        ]);
+
+        $status_laporan = StatusLaporan::find($id);
+        
+        $status_laporan->update([
+            'catatan' => $request->catatan
+        ]);
+
+        return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
+    }
+
+    public function updateSK(Request $request, $id)
+    {
+        $request->validate([
+            'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000'
+        ]);
+
+        $status_laporan = StatusLaporan::find($id);
+        Storage::delete('public/sk/data/' . $status_laporan->sk);
+
+        $sk = $request->file('file');
+        $sk->storeAs('public/sk/data/', $sk->hashName());
+
+        $status_laporan->update([
+            'sk' => $sk->hashName()
+        ]);
+        return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
+
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $status_laporan = StatusLaporan::find($id);
+        $isAktif = 0;
+        if($status_laporan->status == 1){
+            $isAktif = 0;
+        }else{
+            $isAktif = 1;
+        }
+        $status_laporan->update([
+            'status' => $isAktif
+        ]);
+        return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
+
     }
 }

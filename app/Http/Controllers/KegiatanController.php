@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Models\Ormawa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KegiatanController extends Controller
 {
@@ -15,14 +17,24 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan_list = Kegiatan::paginate(10);
-        return view('dashboard.kegiatan.index', compact('kegiatan_list'));
+
+        $ormawa_list = Ormawa::paginate(10);
+        return view('dashboard.kegiatan.index', compact('ormawa_list'));
     }
 
-    public function cari(Request $request)
+    public function cariOrmawa(Request $request)
     {
+        $ormawa_list = Ormawa::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        return view('dashboard.kegiatan.index', compact('ormawa_list'));
+    }
+
+    public function cariKegiatan(Request $request)
+    {
+        $ormawa = Ormawa::find($request->ormawa_id);
         $kegiatan_list = Kegiatan::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
-        return view('dashboard.kegiatan.index', compact('kegiatan_list'));
+        // dd($kegiatan_list);
+        return view('dashboard.kegiatan.detail', compact('kegiatan_list','ormawa'));
+        // return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $request->ormawa_id])->with(['kegiatan_list' => $kegiatan_list, 'ormawa' => $ormawa]); 
     }
 
     /**
@@ -45,15 +57,24 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'tgl_kegiatan' => 'required',
+            'ormawa_id' => 'required',
+            'penanggung_jawab' => 'required',
+            'jenis' => 'required',
+            'tgl_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'tempat' => 'required'
         ]);
         Kegiatan::create([
             'nama' => $request->nama,
-            'tgl_kegiatan' => $request->tgl_kegiatan,
-            'deskripsi' => $request->deskripsi,
+            'ormawa_id' => $request->ormawa_id,
+            'penanggung_jawab' => $request->penanggung_jawab,
+            'jenis' => $request->jenis,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_selesai' => $request->tgl_selesai,
+            'tempat' => $request->tempat
         ]);
-
-        return redirect()->route('kegiatan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        Alert::success('Berhasil', 'Data Berhasil Disimpan!');
+        return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $request->ormawa_id]);
     }
 
     /**
@@ -62,11 +83,11 @@ class KegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function kegiatan($id)
     {
-        $kegiatan = Kegiatan::find($id);
-
-        return view('dashboard.kegiatan.detail', compact('kegiatan'));
+        $ormawa = Ormawa::find($id);
+        $kegiatan_list = Kegiatan::where('ormawa_id',$id)->paginate(10);
+        return view('dashboard.kegiatan.detail', compact('ormawa','kegiatan_list'));
     }
 
     /**
@@ -94,16 +115,27 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($id);
         $request->validate([
             'nama' => 'required',
-            'tgl_kegiatan' => 'required',
+            'ormawa_id' => 'required',
+            'penanggung_jawab' => 'required',
+            'jenis' => 'required',
+            'tgl_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'tempat' => 'required'
         ]);
 
         $kegiatan->update([
             'nama' => $request->nama,
-            'tgl_kegiatan' => $request->tgl_kegiatan,
-            'deskripsi' => $request->deskripsi,
+            'ormawa_id' => $request->ormawa_id,
+            'penanggung_jawab' => $request->penanggung_jawab,
+            'jenis' => $request->jenis,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_selesai' => $request->tgl_selesai,
+            'tempat' => $request->tempat
         ]);
 
-        return redirect()->route('kegiatan.index')->with(['success' => 'Data Berhasil Diubah!']);
+        Alert::success('Berhasil', 'Data Berhasil Diubah!');
+
+        return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $request->ormawa_id]);
     }
 
     /**
@@ -115,8 +147,14 @@ class KegiatanController extends Controller
     public function destroy($id)
     {
         $kegiatan = Kegiatan::find($id);
-        Storage::delete('public/img/data/' . $kegiatan->logo);
         Kegiatan::destroy($id);
-        return redirect()->route('kegiatan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Berhasil', 'Data Berhasil Dihapus!');
+        return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $kegiatan->ormawa_id]);
+    }
+
+    public function detail($id)
+    {
+        $kegiatan_list = Kegiatan::find($id);
+        return response()->json($kegiatan_list);
     }
 }

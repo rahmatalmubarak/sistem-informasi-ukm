@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('ormawa_id')->unsigned();
             $table->string('nama',50);
             $table->string('file',100);
+            $table->date('tgl_upload');
             $table->timestamps();
 
             $table->foreign('ormawa_id')->references('id')->on('ormawas')->cascadeOnUpdate()->cascadeOnDelete();

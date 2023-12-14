@@ -16,7 +16,11 @@ class Kegiatan extends Model
      */
     protected $fillable = [
         'nama',
-        'deskripsi',
-        'tgl_kegiatan',
+        'ormawa_id',
+        'penanggung_jawab',
+        'jenis',
+        'tgl_mulai',
+        'tgl_selesai',
+        'tempat'
     ];
 }

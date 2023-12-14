@@ -18,10 +18,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'username' => fake()->name(),
+            'username' => fake()->username(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role_id' => random_int(1,2)
+            'password' => '$2y$10$eP13EuMKsSPNJ1xreyMu0u39BiwniDGg6dnGNVOjL/o/9s3DBC7Fi', // admin
+            'role_id' => 2
         ];
     }
 

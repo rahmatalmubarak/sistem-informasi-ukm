@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
     public function index()
     {
-        
-        // dd(Auth::user()->role->nama == 'admin');
         if(Auth::user()){
             return redirect()->route('dashboard');
         }
@@ -19,23 +19,24 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required',
         ]);
         
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            if(Auth::user()->role->nama == 'calon pendaftar'){
-                return redirect()->route('pendaftar.edit', ['id' => Auth::user()->id]);
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            if(Auth::user()->role->id != $request->role_id){
+                Alert::error('Gagal', 'Role kamu bukan '. Auth::user()->role->nama);
+                return redirect()->route('auth.login');
             }
+            $request->session()->regenerate();
+            Alert::success('Berhasil', 'Login berhasil sebagai '. Auth::user()->role->nama);
             return redirect()->route('dashboard');
         }
-        
-        dd($request);
+
+        Alert::error('Gagal', 'Username dan password salah!');
 
         return back()->withErrors([
-            'password' => 'Wrong email or password',
+            'password' => 'Wrong username or password',
         ]);
     }
     

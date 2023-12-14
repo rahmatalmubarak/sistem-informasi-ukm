@@ -17,8 +17,28 @@ class Ormawa extends Model
     protected $fillable = [
         'nama',
         'logo',
-        'tgl_berdiri',
-        'tag_line',
-        'tentang'
+        'user_id',
+        'deskripsi'
     ];
+
+    public function pendaftar()
+    {
+        return $this->hasOne(Pendaftar::class);
+    }
+
+    public function laporan()
+    {
+        return $this->hasOne(Laporan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function postingan()
+    {
+        return $this->hasOne(Postingan::class);
+    }
+    
 }

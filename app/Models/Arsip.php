@@ -12,6 +12,7 @@ class Arsip extends Model
     protected $fillable = [
         'nama',
         'file',
-        'ormawa_id'
+        'ormawa_id',
+        'tgl_upload',
     ];
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Postingan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostinganController extends Controller
 {
@@ -20,7 +22,7 @@ class PostinganController extends Controller
 
     public function cari(Request $request)
     {
-        $postingan_list = Postingan::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        $postingan_list = Postingan::where('judul', 'LIKE', '%' . $request->cari . '%')->paginate(10);
         return view('dashboard.postingan.index', compact('postingan_list'));
     }
 
@@ -46,15 +48,37 @@ class PostinganController extends Controller
             'judul' => 'required',
             'content' => 'required',
             'kategori' => 'required',
+            'headline' => 'required',
+            'tgl_post' => 'required',
+            'gambar' => 'required|image|mimes:png,jpg,svg|max:2048',
         ]);
+        dd($request->all());
+        if($request->hasFile('gambar')){
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/img/data/', $gambar->hashName());
 
-        Postingan::create([
-            'judul' => $request->judul,
-            'content' => $request->content,
-            'kategori' => $request->kategori
-        ]);
+            Postingan::create([
+                'ormawa_id' => $request->ormawa_id,
+                'judul' => $request->judul,
+                'content' => $request->content,
+                'kategori' => $request->kategori,
+                'headline' => $request->headline,
+                'tgl_post' => $request->tgl_post,
+                'gambar' => $gambar->hashName(), 
+            ]);
+        }else{
+            Postingan::create([
+                'ormawa_id' => $request->ormawa_id,
+                'judul' => $request->judul,
+                'content' => $request->content,
+                'kategori' => $request->kategori,
+                'headline' => $request->headline,
+                'tgl_post' => $request->tgl_post,
+            ]);
+        }
 
-        return redirect()->route('postingan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        Alert::success('Berhasil', 'Data Berhasil Disimpan!');
+        return redirect()->route('postingan.index');
     }
 
     /**
@@ -97,15 +121,38 @@ class PostinganController extends Controller
             'judul' => 'required',
             'content' => 'required',
             'kategori' => 'required',
+            'headline' => 'required',
+            'tgl_post' => 'required',
         ]);
 
-        $postingan->update([
-            'judul' => $request->judul,
-            'content' => $request->content,
-            'kategori' => $request->kategori
-        ]);
+        if ($request->hasFile('gambar')) {
+            Storage::delete('public/img/data/', $postingan->gambar);
 
-        return redirect()->route('postingan.index')->with(['success' => 'Data Berhasil Diubah!']);
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/img/data/', $gambar->hashName());
+
+            $postingan->update([
+                'ormawa_id' => $request->ormawa_id,
+                'judul' => $request->judul,
+                'content' => $request->content,
+                'kategori' => $request->kategori,
+                'headline' => $request->headline,
+                'tgl_post' => $request->tgl_post,
+                'gambar' => $gambar->hashName(),
+            ]);
+        } else {
+            $postingan->update([
+                'ormawa_id' => $request->ormawa_id,
+                'judul' => $request->judul,
+                'content' => $request->content,
+                'kategori' => $request->kategori,
+                'headline' => $request->headline,
+                'tgl_post' => $request->tgl_post,
+            ]);
+        }
+
+        Alert::success('Berhasil', 'Data Berhasil Diubah!');
+        return redirect()->route('postingan.index');
     }
 
     /**
@@ -116,7 +163,10 @@ class PostinganController extends Controller
      */
     public function destroy($id)
     {
+        $postingan = Postingan::find($id);
+        Storage::delete('public/img/data/', $postingan->gambar);
         Postingan::destroy($id);
-        return redirect()->route('postingan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Berhasil', 'Data Berhasil Dihapus!');
+        return redirect()->route('postingan.index');
     }
 }

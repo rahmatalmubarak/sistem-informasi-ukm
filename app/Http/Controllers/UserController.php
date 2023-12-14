@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -22,7 +24,7 @@ class UserController extends Controller
 
     public function cari(Request $request)
     {
-        $user_list = User::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        $user_list = User::where('username', 'LIKE', '%' . $request->cari . '%')->paginate(10);
         return view('dashboard.user.index', compact('user_list'));
     }
 
@@ -50,8 +52,7 @@ class UserController extends Controller
             'password' => 'required',
             'role_id' => 'required'
         ]);
-        $image = $request->file('foto');
-        $image->storeAs('public/img/user/', $image->hashName());
+        
         User::create([
             'username' => $request->username,
             'email' => $request->email,
@@ -59,7 +60,8 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        return redirect()->route('user.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        Alert::success('Sukses', 'User berhasil ditambahkan');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -71,8 +73,11 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-
-        return view('dashboard.user.detail', compact('user'));
+        $user = [
+            'user' => $user,
+            'role' => $user->role->nama
+        ];
+        return response()->json($user);
     }
 
     /**
@@ -99,27 +104,27 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $request->validate([
-            'username' => 'required',
-            'email' => 'required',
-            'role_id' => 'required'
+                'username' => 'required',
+                'email' => 'required',
+                'role_id' => 'required'
         ]);
-        
+
         // cek apakah password juga diganti 
-        if($request->password == null){
+        if ($request->password == null) {
             $request->password = $user->password;
-        }else{
+        } else {
             $request->password = Hash::make($request->password);
         }
-    
-        $user->update([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => $request->password,
-            'role_id' => $request->role_id,
-        ]);
-    
+        
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role_id = $request->role_id;
+        $user->save();
 
-        return redirect()->route('user.index')->with(['success' => 'Data Berhasil Diubah!']);
+        Alert::success('Sukses', 'User berhasil diubah');
+        return redirect()->route('user.index');
+
     }
 
     /**
@@ -131,6 +136,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect()->route('user.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Sukses', 'User berhasil dihapus');
+        return redirect()->route('user.index');
     }
 }

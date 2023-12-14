@@ -1,84 +1,80 @@
-<header>
-    <!-- Navbar
-    ================================================== -->
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <!-- logo -->
-                <a class="brand logo" href="index.html"><img src="img/logo.png" alt=""></a>
-                <!-- end logo -->
-                <!-- top menu -->
-                <div class="navigation">
-                    <nav>
-                        <ul class="nav topnav">
-                            <li class="dropdown active">
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="index.html">Postingan</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="index.html">Ormawa</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="index.html">Kontak</a>
-                            </li>
-                            {{-- <li class="dropdown">
-                                <a href="#">Features</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="overview.html">Overview</a></li>
-                                    <li><a href="scaffolding.html">Scaffolding</a></li>
-                                    <li><a href="base-css.html">Base CSS</a></li>
-                                    <li><a href="components.html">Components</a></li>
-                                    <li><a href="javascript.html">Javascripts</a></li>
-                                    <li><a href="icons.html">More icons</a></li>
-                                    <li class="dropdown"><a href="#">3rd level</a>
-                                        <ul class="dropdown-menu sub-menu">
-                                            <li><a href="#">Example menu</a></li>
-                                            <li><a href="#">Example menu</a></li>
-                                            <li><a href="#">Example menu</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#">Pages</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="about.html">About us</a></li>
-                                    <li><a href="pricingtable.html">Pricing table</a></li>
-                                    <li><a href="fullwidth.html">Fullwidth</a></li>
-                                    <li><a href="404.html">404</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#">Portfolio</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="portfolio-2cols.html">Portfolio 2 columns</a></li>
-                                    <li><a href="portfolio-3cols.html">Portfolio 3 columns</a></li>
-                                    <li><a href="portfolio-4cols.html">Portfolio 4 columns</a></li>
-                                    <li><a href="portfolio-detail.html">Portfolio detail</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#">Blog</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="blog_left_sidebar.html">Blog left sidebar</a></li>
-                                    <li><a href="blog_right_sidebar.html">Blog right sidebar</a></li>
-                                    <li><a href="post_left_sidebar.html">Post left sidebar</a></li>
-                                    <li><a href="post_right_sidebar.html">Post right sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li> --}}
-                            <li>
-                                <a href="{{ route('auth.login') }}">Masuk</a>
-                            </li>
-                        </ul>
-                    </nav>
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <div class="container">
+        <ul class="navbar-nav">
+            <img style="height: auto; width: 40%; display: block;" src="{{Storage::url('public/img/assets/panel-uinib.png')}}" alt="uinib">
+        </ul>
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('landing_page') }}" role="button">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('landing_page.postingan-ormawa') }}" role="button">
+                    Postingan
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('landing_page.ormawa') }}" role="button">
+                    Ormawa
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link pl-1" data-toggle="dropdown" href="#ormawa">
+                    <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#ormawa" class="dropdown-item">
+                        @php
+                            use App\Models\Ormawa;
+                            $ormawa_list = Ormawa::all();
+                        @endphp
+                        @foreach ($ormawa_list as $ormawa)
+                            <div class="media align-items-center">
+                                <img src="{{Storage::url('public/img/assets/'. $ormawa->logo)}}" style="height: auto; width: 20%; display: block;" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        {{$ormawa->nama}}
+                                    </h3>
+                                </div>
+                            </div>  
+                        @endforeach
+                    </a>
                 </div>
-                <!-- end menu -->
-            </div>
-        </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('landing_page.pengurus') }}" role="button">
+                    Pengurus
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('landing_page.kontak') }}" role="button">
+                    Kontak
+                </a>
+            </li>
+            <li class="nav-item">
+                <div class="col-9 ml-3 ">
+                    <div class="input-group input-group-md" style="width: 150px; height: 50;">
+                        <form class="d-flex" action="" method="get">
+                            <input type="text" name="cari" class="form-control float-right" placeholder="Search"
+                                value="{{old('cari')}}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-danger" href="{{ route('auth.login') }}">
+                    Login
+                </a>
+            </li>
+        </ul>
     </div>
-</header>
+</nav>

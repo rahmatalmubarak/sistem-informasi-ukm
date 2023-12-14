@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('nama',50);
             $table->string('penanggung_jawab',50);
             $table->string('jenis',20);
-            $table->text('deskripsi');
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
             $table->text('tempat');

@@ -13,5 +13,13 @@ class Postingan extends Model
         'judul',
         'content',
         'kategori',
+        'headline',
+        'tgl_post',
+        'gambar'
     ];
+
+    public function ormawa()
+    {
+        return $this->belongsTo(Ormawa::class);
+    }
 }

@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('postingans', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('ormawa_id')->unsigned();
             $table->string('judul',50);
             $table->string('headline',50);
             $table->text('content');
             $table->string('gambar',100);
-            $table->string('status',25);
             $table->string('kategori',25);
             $table->date('tgl_post');
             $table->timestamps();
+
+            $table->foreign('ormawa_id')->references('id')->on('ormawas')->cascadeOnDelete()->cascadeOnUpdate();
         }) ;
     }
 
