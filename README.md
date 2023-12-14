@@ -1,7 +1,7 @@
 Cara install :
 
 1. Install Aplikasi composer (https://getcomposer.org/Composer-Setup.exe) 
-1. Download Atw clone github 
+1. Download Atw clone github 'https://github.com/rahmatalmubarak/sistem-informasi-ukm.git'
 1. Buat database dengan nama 'db_siomah'
 1. jalankan perintah : 
 - composer install
