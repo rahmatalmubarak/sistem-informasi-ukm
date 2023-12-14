@@ -11,3 +11,11 @@ Cara install :
 - php artisan storage:link
 - php artisan serve
 1. selesai, akses website dengan klik http://localhost:8000/home
+
+SUPER ADMIN
+User : super.admin
+Pass : admin
+
+ADMIN
+User: (cek di datbase)
+Pass : admin
