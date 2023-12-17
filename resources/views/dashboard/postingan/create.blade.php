@@ -22,9 +22,9 @@ Buat Postingan
                                     <label for="kategori">Kategori</label>
                                     <select class="form-control form-control-sm @error('kategori') is-invalid @enderror" name="kategori">
                                         <option value="">--Kategori--</option>
-                                        <option value="berita" @if (old('berita') == 'berita') selected @endif>Berita</option>
-                                        <option value="pengumuman" @if (old('pengumuman') == 'pengumuman') selected @endif>Pengumuman</option>
-                                        <option value="agenda kegiatan" @if (old('agenda kegiatan') == 'agenda kegiatan') selected @endif>Agenda Kegiatan</option>
+                                        <option value="berita" @if (old('kategori') == 'berita') selected @endif>Berita</option>
+                                        <option value="pengumuman" @if (old('kategori') == 'pengumuman') selected @endif>Pengumuman</option>
+                                        <option value="agenda kegiatan" @if (old('kategori') == 'agenda kegiatan') selected @endif>Agenda Kegiatan</option>
                                     </select>
                                     @error('kategori') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                                 </div>
