@@ -6,6 +6,7 @@ use App\Models\Laporan;
 use App\Models\StatusLaporan;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,13 +20,21 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $laporan_list = Laporan::paginate(10);
+        if (Auth::user()->role->id == 1) {
+            $laporan_list = Laporan::paginate(10);
+        }else{
+            $laporan_list = Laporan::where('ormawa_id', Auth::user()->ormawa->id)->paginate(10);
+        }
         return view('dashboard.laporan.index', compact('laporan_list'));
     }
 
     public function cari(Request $request)
     {
-        $laporan_list = Laporan::where('judul', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        if (Auth::user()->role->id == 1) {
+            $laporan_list = Laporan::where('judul', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        }else{
+            $laporan_list = Laporan::where('ormawa_id', Auth::user()->ormawa->id)->where('judul', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        }
         return view('dashboard.laporan.index', compact('laporan_list'));
     }
 

@@ -21,7 +21,8 @@ class UserFactory extends Factory
             'username' => fake()->username(),
             'email' => fake()->unique()->safeEmail(),
             'password' => '$2y$10$eP13EuMKsSPNJ1xreyMu0u39BiwniDGg6dnGNVOjL/o/9s3DBC7Fi', // admin
-            'role_id' => 2
+            'role_id' => 2,
+            'ormawa_id' => random_int(1,4)
         ];
     }
 

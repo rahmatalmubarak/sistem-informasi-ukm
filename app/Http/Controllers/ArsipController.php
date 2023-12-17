@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Arsip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +23,8 @@ class ArsipController extends Controller
 
     public function cari(Request $request)
     {
-        $arsip_list = Arsip::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        $arsip_list = Arsip::where('nama', 'LIKE', '%' . $request->cari . '%')
+                    ->paginate(10);
         return view('dashboard.arsip.index', compact('arsip_list'));
     }
 

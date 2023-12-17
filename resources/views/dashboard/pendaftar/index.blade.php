@@ -74,7 +74,7 @@ Pendaftar
                                                         
                                                         <button class="btn btn-danger mr-1" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                     </form>
-                                                    <a href="{{ route('pendaftar.detail', ['id'=>$pendaftar->id]) }}" class="btn btn-primary">
+                                                    <a href="{{ route('pendaftar.detail', ['id'=>$pendaftar->id]) }}" class="btn btn-warning">
                                                         Detail
                                                     </a>
                                                 </td>

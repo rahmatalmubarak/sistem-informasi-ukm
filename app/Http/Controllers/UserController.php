@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ormawa;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,13 +20,15 @@ class UserController extends Controller
     public function index()
     {
         $user_list = User::paginate(10);
-        return view('dashboard.user.index', compact('user_list'));
+        $ormawa_list = Ormawa::all();
+        return view('dashboard.user.index', compact(['user_list', 'ormawa_list']));
     }
 
     public function cari(Request $request)
     {
         $user_list = User::where('username', 'LIKE', '%' . $request->cari . '%')->paginate(10);
-        return view('dashboard.user.index', compact('user_list'));
+        $ormawa_list = Ormawa::all();
+        return view('dashboard.user.index', compact(['user_list', 'ormawa_list']));
     }
 
     /**
@@ -50,7 +53,8 @@ class UserController extends Controller
             'username' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'ormawa_id' => 'required'
         ]);
         
         User::create([
@@ -58,6 +62,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
+            'ormawa_id' => $request->ormawa_id,
         ]);
 
         Alert::success('Sukses', 'User berhasil ditambahkan');
@@ -106,7 +111,8 @@ class UserController extends Controller
         $request->validate([
                 'username' => 'required',
                 'email' => 'required',
-                'role_id' => 'required'
+                'role_id' => 'required',
+                'ormawa_id' => 'required'
         ]);
 
         // cek apakah password juga diganti 
@@ -120,6 +126,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->role_id = $request->role_id;
+        $user->ormawa_id = $request->ormawa_id;
         $user->save();
 
         Alert::success('Sukses', 'User berhasil diubah');

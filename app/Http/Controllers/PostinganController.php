@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Postingan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,6 +17,7 @@ class PostinganController extends Controller
      */
     public function index()
     {
+        
         $postingan_list = Postingan::paginate(10);
         return view('dashboard.postingan.index', compact('postingan_list'));
     }
@@ -52,7 +54,6 @@ class PostinganController extends Controller
             'tgl_post' => 'required',
             'gambar' => 'required|image|mimes:png,jpg,svg|max:2048',
         ]);
-        dd($request->all());
         if($request->hasFile('gambar')){
             $gambar = $request->file('gambar');
             $gambar->storeAs('public/img/data/', $gambar->hashName());

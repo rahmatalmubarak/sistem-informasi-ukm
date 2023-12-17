@@ -1,18 +1,25 @@
 <!-- Navbar -->
+@php
+    use App\Models\Message;
+    $messages = Message::where('is_read', 0)->get();
+@endphp
 <nav class="main-header navbar navbar-expand navbar-blue navbar-light py-0">
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto mr-4">
-        <li class="nav-item d-flex align-items-center dropdown show">
-            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+        @if (Auth::user()->role->id == 2)
+        <li class="nav-item d-flex align-items-center dropdown ">
+            <a class="nav-link" href="{{ route('pesan.index') }}" >
                 <i class="far text-white fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                @if ($messages->count() > 0)
+                    <span class="badge badge-warning navbar-badge">{{$messages->count()}}</span>
+                @endif
             </a>
-            @php
-                use App\Models\Message;
-                $messages = Message::orderBy('id', 'desc')->paginate(5);
-            @endphp
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
+            {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                @if ($messages->count() > 0)
+                <span class="dropdown-item dropdown-header">{{$messages->count()}} notifikasi</span>
+                @else
+                <span class="dropdown-item dropdown-header">Tidak ada notifikasi</span>
+                @endif
                 <div class="dropdown-divider"></div>
                 @foreach ($messages as $message)
                     <a href="#" class="dropdown-item">
@@ -21,12 +28,17 @@
                     </a>
                     <div class="dropdown-divider"></div>
                 @endforeach
-            </div>
+            </div> --}}
         </li>
+        @endif
         <li class="nav-item mr-2">
             <div class="user-panel d-flex align-items-center">
                 <div class="image mr-2">
-                    <img src="{{ asset('img/user2-160x160.jpg') }} " class="img-circle elevation-2" alt="User Image">
+                    @if(Auth::user()->role->id == 1)
+                    <img src="{{ asset('img/logo-uinib.png') }} " class="img-circle elevation-2" alt="Super Admin">
+                    @else
+                    <img src="{{ Storage::url('public/img/data/'.Auth::user()->ormawa->logo) }} " class="bg-white img-circle elevation-2" alt="Admin">
+                    @endif
                 </div>
                 <div class="info">
                     <span class="text-sm">Halo, </span>

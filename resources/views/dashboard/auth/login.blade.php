@@ -37,13 +37,16 @@
                                 @csrf
                                 <input type="hidden" name="role_id" value="1">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('username') invalid @enderror" name="username" placeholder="Username">
-                                    @error('username')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                    <input type="text" class="form-control @error('username') invalid @enderror" name="username" placeholder="Username" style="border-radius: 0.25rem;margin-left: -10px">
+                                    <i style="margin-left: -10px; z-index: 9999; display: flex; cursor: pointer;"></i>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <input type="password" class="form-control @error('password') invalid @enderror" name="password" placeholder="Password">
-                                    @error('password')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                @error('username')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                <div class="input-group mb-3 align-items-center">
+                                    <input class="form-control @error('password') invalid @enderror" type="password" id="password1" name="password" placeholder="Password"
+                                    value="" style="border-radius: 0.25rem; margin-left: -10px">
+                                    <i class="fa fa-eye" id="togglePassword1" style="margin-left: -30px; z-index: 9999; display: flex; cursor: pointer;"></i>
                                 </div>
+                                @error('password')<p class="text-sm text-danger">{{$message}}</p>@enderror
                                 <div class="row">
                                     <!-- /.col -->
                                     <div class="col-12 d-flex justify-content-center">
@@ -60,13 +63,15 @@
                                 @csrf
                                 <input type="hidden" name="role_id" value="2">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('username') invalid @enderror" name="username" placeholder="Username">
-                                    @error('username')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                    <input type="text" class="form-control @error('username') invalid @enderror" name="username" placeholder="Username" style="border-radius: 0.25rem;margin-left: -10px">
+                                    <i style="margin-left: -10px; z-index: 9999; display: flex; cursor: pointer;"></i>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <input type="password" class="form-control @error('password') invalid @enderror" name="password" placeholder="Password">
-                                    @error('password')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                @error('username')<p class="text-sm text-danger">{{$message}}</p>@enderror
+                                <div class="input-group mb-3 align-items-center">
+                                    <input class="form-control @error('password') invalid @enderror" type="password" id="password2" name="password" placeholder="Password" value="" style="border-radius: 0.25rem;margin-left: -10px">
+                                    <i class="fa fa-eye" id="togglePassword2" style="margin-left: -30px; z-index: 9999; display: flex;cursor: pointer;"></i>
                                 </div>
+                                @error('password')<p class="text-sm text-danger">{{$message}}</p>@enderror
                                 <div class="row">
                                     <!-- /.col -->
                                     <div class="col-12 d-flex justify-content-center">
@@ -91,6 +96,32 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <script>
+        const togglePassword1 = document.querySelector("#togglePassword1");
+        const togglePassword2 = document.querySelector("#togglePassword2");
+        const password1 = document.querySelector("#password1");
+        const password2 = document.querySelector("#password2");
+      
+      togglePassword1.addEventListener("click", function () {
+          // toggle the type attribute
+          const type = password1.getAttribute("type") === "password" ? "text" : "password";
+          console.log(type);
+        password1.setAttribute("type", type);
+        // toggle the eye icon
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+
+      togglePassword2.addEventListener("click", function () {
+          // toggle the type attribute
+          const type = password2.getAttribute("type") === "password" ? "text" : "password";
+          console.log(type);
+        password2.setAttribute("type", type);
+        // toggle the eye icon
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+    </script>
 </body>
 
 </html>

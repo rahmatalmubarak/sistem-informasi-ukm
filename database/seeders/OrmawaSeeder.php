@@ -17,32 +17,32 @@ class OrmawaSeeder extends Seeder
     {
         $ormawas = [ 
             [
-                'user_id' => 1,
                 'nama' => 'DEMA FST',
                 'logo' => 'dema.png',
                 'deskripsi' => ''
             ],
             [
-                'user_id' => 2,
                 'nama' => 'SEMA FST',
                 'logo' => 'sema.png',
                 'deskripsi' => ''
             ],
             [
-                'user_id' => 3,
                 'nama' => 'HMPS MTK',
                 'logo' => 'mtk.png',
                 'deskripsi' => ''
             ],
             [
-                'user_id' => 4,
-                'nama' => 'HMPS MTK',
+                'nama' => 'HMPS SI',
                 'logo' => 'hmpsi.png',
                 'deskripsi' => ''
             ],
         ];
         foreach ($ormawas as $key => $ormawa) {
-            Ormawa::create($ormawa);
+            if($ormawa_ = Ormawa::where('nama', $ormawa['nama'])->first()){
+                $ormawa_->update($ormawa);
+            }else{
+                Ormawa::create($ormawa);
+            }
         }
     }
 }

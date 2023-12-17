@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'ormawa_id',
     ];
 
     /**
@@ -48,6 +49,6 @@ class User extends Authenticatable
 
     public function ormawa()
     {
-        return $this->hasOne(Ormawa::class);
+        return $this->belongsTo(Ormawa::class);
     }
 }

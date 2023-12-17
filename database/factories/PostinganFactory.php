@@ -18,7 +18,6 @@ class postinganFactory extends Factory
     {
         $kategori = array(
             "berita",
-            "pengumuman",
             "agenda"
         );
 

@@ -15,7 +15,8 @@ class Postingan extends Model
         'kategori',
         'headline',
         'tgl_post',
-        'gambar'
+        'gambar',
+        'ormawa_id'
     ];
 
     public function ormawa()

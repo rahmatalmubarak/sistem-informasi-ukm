@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use App\Models\Ormawa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,7 +18,6 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-
         $ormawa_list = Ormawa::paginate(10);
         return view('dashboard.kegiatan.index', compact('ormawa_list'));
     }
@@ -31,10 +31,13 @@ class KegiatanController extends Controller
     public function cariKegiatan(Request $request)
     {
         $ormawa = Ormawa::find($request->ormawa_id);
-        $kegiatan_list = Kegiatan::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
-        // dd($kegiatan_list);
+        if(Auth::user()->role->id == 1){
+            $kegiatan_list = Kegiatan::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        }else{
+            $kegiatan_list = Kegiatan::where('ormawa_id', Auth::user()->ormawa->id)
+                            ->where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        }
         return view('dashboard.kegiatan.detail', compact('kegiatan_list','ormawa'));
-        // return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $request->ormawa_id])->with(['kegiatan_list' => $kegiatan_list, 'ormawa' => $ormawa]); 
     }
 
     /**
@@ -86,7 +89,12 @@ class KegiatanController extends Controller
     public function kegiatan($id)
     {
         $ormawa = Ormawa::find($id);
-        $kegiatan_list = Kegiatan::where('ormawa_id',$id)->paginate(10);
+        if(Auth::user()->role->id == 1){
+            $kegiatan_list = Kegiatan::where('ormawa_id',$id)->paginate(10);
+        }else{
+            $kegiatan_list = Kegiatan::where('ormawa_id', Auth::user()->ormawa->id)
+                            ->where('ormawa_id',$id)->paginate(10);
+        }
         return view('dashboard.kegiatan.detail', compact('ormawa','kegiatan_list'));
     }
 

@@ -46,7 +46,7 @@ Ormawa
                                         @foreach ($ormawa_list as $index => $ormawa)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td><img class="img-thumbnail img-size-50" src="{{Storage::url('public/img/assets/'.$ormawa->logo)}}" alt="{{$ormawa->nama}}"> </td>
+                                                <td><img class="img-thumbnail img-size-50" src="{{Storage::url('public/img/data/'.$ormawa->logo)}}" alt="{{$ormawa->nama}}"> </td>
                                                 <td>{{$ormawa->nama}}</td>
                                                 <td>{{substr($ormawa->deskripsi,0,100).'...'}}</td>
                                                 <td class="d-flex pr-0">
@@ -98,23 +98,18 @@ Ormawa
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="logo">Logo</label>
-                        <input type="file" class="form-control" placeholder="logo" name="logo">
+                        <input type="file" class="form-control @error('logo') invalid @enderror" placeholder="logo" name="logo">
+                        @error('logo') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" placeholder="nama" name="nama" value="{{old('nama')}}">
+                        <input type="text" class="form-control @error('nama') invalid @enderror" placeholder="nama" name="nama" value="{{old('nama')}}">
+                        @error('nama') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="deskripsi">Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" cols="30" rows="10">{{old('deskripsi')}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="admin">Admin</label>
-                        <select class="form-control" name="admin">
-                            @foreach ($admin_list as $admin)
-                                <option value="{{$admin->id}}" @if (old('admin')== $admin->id ) {{'selected'}} @endif>{{$admin->username}}</option>
-                            @endforeach
-                        </select>
+                        <textarea class="form-control @error('deskripsi') invalid @enderror" name="deskripsi" cols="30" rows="10">{{old('deskripsi')}}</textarea>
+                        @error('deskripsi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -147,25 +142,20 @@ Ormawa
                                 <img style="width: 150px;height: auto; " src="{{Storage::url('public/img/data/')}}" alt="" id="logo">
                             </div>
                             <div class="col-9">
-                                <input type="file" class="form-control" placeholder="logo" name="logo" id="logo">
+                                <input type="file" class="form-control @error('logo') invalid @enderror" placeholder="logo" name="logo" id="logo">
+                                @error('logo') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" placeholder="nama" name="nama" id="nama" value="{{old('nama')}}">
+                        <input type="text" class="form-control @error('nama') invalid @enderror" placeholder="nama" name="nama" id="nama" value="{{old('nama')}}">
+                        @error('nama') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="deskripsi">Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" cols="30" rows="10" id="deskripsi">{{old('deskripsi')}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="admin">Admin</label>
-                        <select class="form-control" name="admin" id="admin">
-                            @foreach ($admin_list as $admin)
-                                <option value="{{$admin->id}}" @if (old('admin')== $admin->id ) {{'selected'}} @endif>{{$admin->username}}</option>
-                            @endforeach
-                        </select>
+                        <textarea class="form-control @error('deskripsi') invalid @enderror" name="deskripsi" cols="30" rows="10" id="deskripsi">{{old('deskripsi')}}</textarea>
+                        @error('deskripsi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">

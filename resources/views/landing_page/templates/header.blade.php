@@ -13,6 +13,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo-uinib.png') }}">
 </head>
 
 <style>
@@ -37,4 +38,23 @@
         min-width: 200px;
         padding: 0;
     }
+
+    .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav
+    .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+        color : #c53d4a; 
+    }
+
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: #ff3e3e;
+
+    }
+
+    .periode-link {
+        color: rgb(255, 71, 71);
+    }
+    .periode-link:hover {
+        color: rgb(24, 24, 24);
+    }
+
+
 </style>

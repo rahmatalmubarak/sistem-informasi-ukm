@@ -14,7 +14,7 @@ Status Laporan
                 <div class="col-9 ml-3 mb-3">
                     <div class="input-group input-group-md" style="width: 250px; height: 50;">
                         <form class="d-flex" action="{{ route('status_laporan.cari') }}" method="get">
-                            <input type="text" name="cari" class="form-control float-right" placeholder="Search" value="{{old('cari')}}">
+                            <input type="text" name="cari" class="form-control @error('judul') invalid @enderror float-right" placeholder="Search" value="{{old('cari')}}">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
@@ -23,11 +23,13 @@ Status Laporan
                         </form>
                     </div>
                 </div>
-                <div class="col-2 mb-3 ml-5 d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-laporan">
-                        Tambah Laporan
-                    </button>
-                </div>
+                @if (Auth::user()->role->id == 2)
+                    <div class="col-2 mb-3 ml-5 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-laporan">
+                            Tambah Laporan
+                        </button>
+                    </div>
+                @endif
                 <div class="col-12">
                     <div class="card">            
                         <div class="card-body table-responsive p-0">
@@ -124,6 +126,7 @@ Status Laporan
 <!-- /.content-wrapper -->
 
 {{-- Modal Add Laporan --}}
+@if (Auth::user()->role->id == 2)
 <div class="modal fade" id="tambah-laporan">
     <div class="modal-dialog modal-lg">
         <form action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
@@ -140,11 +143,13 @@ Status Laporan
                     <input type="hidden" name="ormawa_id" value="{{Auth::user()->ormawa->id}}">
                     <div class="form-group">
                         <label for="judul">Nama</label>
-                        <input type="text" class="form-control" placeholder="judul" name="judul" value="{{old('judul')}}">
+                        <input type="text" class="form-control @error('judul') invalid @enderror" placeholder="judul" name="judul" value="{{old('judul')}}">
+                        @error('judul') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="file">File Laporan</label>
-                        <input type="file" class="form-control" placeholder="file" name="file">
+                        <input type="file" class="form-control @error('file') invalid @enderror" placeholder="file" name="file">
+                        @error('file') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -172,11 +177,13 @@ Status Laporan
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="judul">Nama</label>
-                        <input type="text" class="form-control" placeholder="judul" name="judul" id="judul" value="{{old('judul')}}">
+                        <input type="text" class="form-control @error('judul') invalid @enderror" placeholder="judul" name="judul" id="judul" value="{{old('judul')}}">
+                        @error('judul') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="file">File Laporan</label>
-                        <input type="file" class="form-control" placeholder="file" name="file">
+                        <input type="file" class="form-control @error('file') invalid @enderror" placeholder="file" name="file">
+                        @error('file') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -187,7 +194,7 @@ Status Laporan
         </form> 
     </div>
 </div>
-
+@endif
 {{-- Modal Edit Catatan --}}
 <div class="modal fade" id="edit-catatan">
     <div class="modal-dialog modal-lg">
@@ -204,7 +211,8 @@ Status Laporan
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="catatan">Catatan</label>
-                        <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="10"></textarea>
+                        <textarea class="form-control @error('catatan') invalid @enderror" name="catatan" id="catatan" cols="30" rows="10"></textarea>
+                        @error('catatan') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -232,7 +240,8 @@ Status Laporan
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="file">File SK</label>
-                        <input type="file" class="form-control" placeholder="file" name="file">
+                        <input type="file" class="form-control @error('file') invalid @enderror" placeholder="file" name="file">
+                        @error('file') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">

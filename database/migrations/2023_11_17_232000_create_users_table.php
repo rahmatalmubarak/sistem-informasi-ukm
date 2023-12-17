@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('email',50);
             $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('ormawa_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('ormawa_id')->references('id')->on('ormawas')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

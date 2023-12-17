@@ -1,7 +1,7 @@
 @extends('landing_page.templates.main')
 
 @section('title')
-Open Recruitment
+SEMA FST
 @endsection
 
 @section('content')
@@ -56,7 +56,7 @@ Open Recruitment
         <div class="text-center my-5">
             <h4 class="text-bold">Struktur Kepengurusan SEMA 2023 - 2024</h4>
             <div class="text-center">
-                <img src="{{Storage::url('public/img/assets/dema-anggota.png')}}" alt="sema-fst">
+                <img src="{{Storage::url('public/img/assets/dema-anggota.png')}}" alt="sema-fst" style="width: 100%; height: auto; padding-left: 200px; padding-right: 200px">
             </div>
         </div>
     </div>

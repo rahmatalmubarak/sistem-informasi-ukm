@@ -147,10 +147,11 @@ Laporan
                         <label for="file">File Laporan</label>
                         <div class="input-group" style="border: 0.5px solid rgb(119, 119, 119); height: 100px;border-radius: 10px;">
                             <div class="custom-file d-flex flex-column justify-content-center align-items-center h-auto">
-                                <input type="file" class="custom-file-input w-full" style="height: 100px !important" id="file" name="file">
+                                <input type="file" class="custom-file-input w-full @error('file') invalid @enderror" style="height: 100px !important" id="file" name="file">
                                 <i class="text-lg fas fa-upload d-block position-absolute"></i>
                             </div>
                         </div>
+                        @error('file') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">

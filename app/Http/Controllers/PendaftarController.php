@@ -20,13 +20,15 @@ class PendaftarController extends Controller
 
     public function index()
     {
-        $pendaftar_list = Pendaftar::paginate(10);
+        $pendaftar_list = Pendaftar::where('ormawa_id', Auth::user()->ormawa->id)->paginate(10);
         return view('dashboard.pendaftar.index', compact('pendaftar_list'));
     }
 
     public function cari(Request $request)
     {
-        $pendaftar_list = Pendaftar::where('nama', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        $pendaftar_list = Pendaftar::where('ormawa_id', Auth::user()->ormawa->id)
+                            ->where('nama', 'LIKE', '%' . $request->cari . '%')
+                            ->paginate(10);
         return view('dashboard.pendaftar.index', compact('pendaftar_list'));
     }
 
@@ -48,26 +50,22 @@ class PendaftarController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'ormawa_id' => 'required',
+            'nama' => 'required',
+            'email' => 'required|unique:pendaftars',
+            'nim' => 'required',
+            'kontak' => 'required',
+            'kelas' => 'required',
+            'kepengurusan_sebelumnya' => 'required',
+            'tujuan' => 'required',
+            'file_syarat' => 'required',
+            'konfirmasi' => 'required',
+        ]);
         try {
-
-            $request->validate([
-                'ormawa_id' => 'required',
-                'nama' => 'required',
-                'email' => 'required',
-                'nim' => 'required',
-                'kontak' => 'required',
-                'kelas' => 'required',
-                'kepengurusan_sebelumnya' => 'required',
-                'tujuan' => 'required',
-                'file_syarat' => 'required',
-                'konfirmasi' => 'required',
-            ]);
-
-
 
             $file_syarat = $request->file('file_syarat');
             $file_syarat->storeAs('public/file/pendaftar/', $file_syarat->hashName());
-        
 
             Pendaftar::create([
                 'ormawa_id' => $request->ormawa_id,
@@ -85,10 +83,10 @@ class PendaftarController extends Controller
             $user = Pendaftar::where('email', $request->email)->first();
 
             Alert::success('Berhasil', 'Data Berhasil Disimpan!');
-            // return redirect()->route('pendaftar.edit', ['id'=> $user->id]);
-            return redirect()->route('dashboard');
+            return redirect()->back();
         } catch (\Throwable $e) {
-            dd($e); 
+            Alert::error('Gagal', 'Data Gagal Disimpan!');
+            return redirect()->back();
         }
     }
 
@@ -116,46 +114,6 @@ class PendaftarController extends Controller
         $pendaftar = Pendaftar::find($id);
 
         return view('dashboard.pendaftar.edit', compact('pendaftar'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $pendaftar = Pendaftar::find($id);
-        $request->validate([
-            'ormawa_id' => 'required',
-            'nama' => 'required',
-            'email' => 'required',
-            'nim' => 'required',
-            'kontak' => 'required',
-            'kelas' => 'required',
-            'kepengurusan_sebelumnya' => 'required',
-            'tujuan' => 'required',
-            'file_syarat' => 'required',
-            'konfirmasi' => 'required',
-        ]);
-        $pendaftar->update([
-            'ormawa_id' => $request->ormawa_id,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'nim' => $request->nim,
-            'kontak' => $request->kontak,
-            'kelas' => $request->kelas,
-            'kepengurusan_sebelumnya' => $request->kepengurusan_sebelumnya,
-            'tujuan' => $request->tujuan,
-            'file_syarat' => $file_syarat->hashName(),
-            'konfirmasi' => $request->konfirmasi,
-        ]);
-
-        Alert::success('Berhasil', 'Data Berhasil Diubah!');
-
-        return redirect()->route('pendaftar.finish');
     }
 
     /**

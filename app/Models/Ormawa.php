@@ -17,7 +17,6 @@ class Ormawa extends Model
     protected $fillable = [
         'nama',
         'logo',
-        'user_id',
         'deskripsi'
     ];
 
@@ -33,7 +32,7 @@ class Ormawa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function postingan()

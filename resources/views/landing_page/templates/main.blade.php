@@ -4,7 +4,6 @@
 @include('landing_page.templates.header')
 
 <body>
-    
     @include('landing_page.templates.navbar')
     <div class="container">
         @yield('content')
@@ -19,8 +18,9 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <script src="{{ asset('js/carousel.js') }}"></script>
-
-    <script></script>
+    <script>
+    </script>
+    @include('vendor.sweetalert.alert')
 </body>
 
 </html>

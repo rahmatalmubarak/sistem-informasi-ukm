@@ -6,7 +6,7 @@ Daftar pengurus
 
 @section('content')
 <div class="row mt-4">
-    <h4>Pengurus Periode 2021 / 2022</h4>
+    <h4>Pengurus Periode {{Request::input('periode')}}</h4>
 </div>
 <div class="row mt-3">
     <div class="col-12">
@@ -14,12 +14,15 @@ Daftar pengurus
             <div class="card-header">
                 <div class="card-tools float-left">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-left" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                        <form action="{{ route('landing_page.cari_pengurus') }}" class="d-flex" method="get">
+                            <input type="hidden" name="periode" value="{{Request::input('periode')}}">
+                            <input type="text" name="cari" class="form-control float-left" placeholder="Search" value="{{Request::input('cari')}}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -27,7 +30,7 @@ Daftar pengurus
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>No</th>
                             <th>Nama</th>
                             <th>Ormawa</th>
@@ -36,37 +39,26 @@ Daftar pengurus
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Innamul Ikhwana</td>
-                            <td>HMPS SI</td>
-                            <td>Ketua HMPS SI</td>
-                            <td>
-                                <img src="" alt="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Refika Fitria Gunawan</td>
-                            <td>HMPS SI</td>
-                            <td>Sekretaris HMPS SI</td>
-                            <td>
-                                <img src="" alt="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jihan Ariska</td>
-                            <td>HMPS SI</td>
-                            <td>Bendahara HMPS SI</td>
-                            <td>
-                                <img src="" alt="">
-                            </td>
-                        </tr>
+                        @php
+                            $no = 1;
+                        @endphp
+                        @foreach ($pengurus_list as $pengurus)
+                            <tr>
+                                <td>{{$no++}}</td>
+                                <td>{{$pengurus->nama}}</td>
+                                <td>{{$pengurus->ukm}}</td>
+                                <td>{{$pengurus->jabatan}}</td>
+                                <td>
+                                    <img style="width: 100%; height: 100px; object-fit: contain;" src="{{Storage::url('public/img/pengurus/'.$pengurus->gambar)}}" alt="{{$pengurus->gambar}}">
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{$pengurus_list->links()}}
         </div>
 
     </div>

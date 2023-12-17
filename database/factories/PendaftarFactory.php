@@ -40,7 +40,7 @@ class PendaftarFactory extends Factory
             'kelas' => $kelas[array_rand($kelas)],
             'kepengurusan_sebelumnya' => $kepengurusan[array_rand($kepengurusan)],
             'tujuan' => fake()->userName(),
-            'file_syarat' => fake()->userName(),
+            'file_syarat' => 'test.pdf',
             'konfirmasi' => 0
         ];
     }

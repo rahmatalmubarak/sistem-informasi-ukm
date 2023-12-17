@@ -1,3 +1,7 @@
+PENTING
+Jika database sudah berisi silahkan hapus isinya terlebih dahulu. Jalankan perintah ini
+php artisan db:wipe
+
 Cara install :
 
 1. Install Aplikasi composer (https://getcomposer.org/Composer-Setup.exe) 
@@ -19,3 +23,4 @@ Pass : admin
 ADMIN
 User: (cek di datbase)
 Pass : admin
+

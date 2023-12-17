@@ -1,12 +1,12 @@
 @extends('landing_page.templates.main')
 
 @section('title')
-Open Recruitment
+HMPS SI
 @endsection
 
 @section('content')
     <div class="row mt-4">
-            <p>Ormawa / SEMA FST</p>
+            <p>Ormawa / HMPS SI</p>
     </div>
     <div class="row mt-3">
         <div class="col-12 bg-dark d-flex justify-content-center align-items-center text-center w-full height-25" style="height: 130px;">
@@ -53,7 +53,7 @@ Open Recruitment
             <div class="text-center my-5">
                 <h4 class="text-bold">Struktur Kepengurusan HMPS SI 2023 - 2024</h4>
                 <div class="text-center">
-                    <img src="{{Storage::url('public/img/assets/hmpsi-anggota.png')}}" alt="hmps-si">
+                    <img src="{{Storage::url('public/img/assets/hmpsi-anggota.png')}}" alt="hmps-si" style="width: 100%; height: auto; padding-left: 200px; padding-right: 200px">
                 </div>
             </div>
         </div>

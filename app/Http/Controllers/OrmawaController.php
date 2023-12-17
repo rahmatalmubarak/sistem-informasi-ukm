@@ -39,18 +39,16 @@ class OrmawaController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'admin' => 'required',
             'logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
             'deskripsi' => 'required',
         ]);
 
         $image = $request->file('logo');
-        $image->storeAs('public/img/assets/', $image->hashName());
+        $image->storeAs('public/img/data/', $image->hashName());
         Ormawa::create([
             'nama' => $request->nama,
             'logo' => $image->hashName(),
             'deskripsi' => $request->deskripsi,
-            'user_id' => $request->admin
         ]);
         
         Alert::success('Sukses', 'Ormawa berhasil ditambahkan');
@@ -98,26 +96,25 @@ class OrmawaController extends Controller
             'nama' => 'required',
             'logo' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'deskripsi' => 'required',
-            'admin' => 'required'
         ]);
         
         if($request->hasFile('logo')){
             $image = $request->file('logo');
-            $image->storeAs('public/img/assets/', $image->hashName());
+            $image->storeAs('public/img/data/', $image->hashName());
 
-            Storage::delete('public/img/assets/' . $ormawa->logo);
+            Storage::delete('public/img/data/' . $ormawa->logo);
             
             $ormawa->update([
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
                 'logo' => $image->hashName(),
-                'user_id' => $request->admin
+
             ]);
         }else{
             $ormawa->update([
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
-                'user_id' => $request->admin
+
             ]);
         }
 
@@ -134,7 +131,7 @@ class OrmawaController extends Controller
     public function destroy($id)
     {
         $ormawa = Ormawa::find($id);
-        Storage::delete('public/img/assets/' . $ormawa->logo);
+        Storage::delete('public/img/data/' . $ormawa->logo);
         Ormawa::destroy($id);
         Alert::success('Sukses', 'Data Berhasil Dihapus!');
         return redirect()->route('ormawa.index');

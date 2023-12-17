@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
+  <title>@yield('title')</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('img/siomah.png') }}" >
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -47,6 +47,15 @@
     background-color: rgb(0 0 0 / 10%);
     color: #212122;
   }
+
+  .password-show {
+        background-color: transparent;
+        display: block;
+        position: absolute;
+        z-index: 999999;
+        top: 31%;
+        right: 4%;
+  }
 </style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -55,7 +64,6 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
   </div> --}}
-
 @include('dashboard.templates.navbar')
 
 @include('dashboard.templates.sidebar')
@@ -75,10 +83,10 @@
   @yield('content')
 
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2023-2024 <a href="#">Haniva Gustina</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.0.0
     </div>
   </footer>
 
@@ -138,14 +146,16 @@
                 url: userUrlGet,
                 type: 'GET',
                 success: function(data) {
-                  console.log(data);
+                  // console.log(data);
                   $('#username').val(data.user.username);
                   $('#email').val(data.user.email);
                   
                   $('#role_id').attr('data-status', data.user.role_id);
                   var role_id = $("#role_id").data("status");
                   var roles = $('#role_id option[value="'+ role_id +'"]').prop('selected', true);
-
+                  $('#ormawa_id').attr('data-status', data.user.ormawa_id);
+                  var ormawa_id = $("#ormawa_id").data("status");
+                  var ormawa = $('#ormawa_id option[value="'+ ormawa_id +'"]').prop('selected', true);
                   $('#edit-user').modal('show');
 
                   $('#editUser').attr('action',userUrlUpdate );
@@ -172,9 +182,9 @@
                   $('#nama').val(data.nama);
                   $('#deskripsi').val(data.deskripsi);
                   
-                  $('#admin').attr('data-status', data.user_id);
-                  var admin = $("#admin").data("status");
-                  var roles = $('#admin option[value="'+ admin +'"]').prop('selected', true);
+                  // $('#admin').attr('data-status', data.user_id);
+                  // var admin = $("#admin").data("status");
+                  // var roles = $('#admin option[value="'+ admin +'"]').prop('selected', true);
 
                   $('#edit-ormawa').modal('show');
 
@@ -274,6 +284,35 @@
                 }
             });
        });
+
+       $('body').on('click', '#show-pesan', function () {
+            var id = $(this).data('item-id');
+            var pesanUrlGet = '{{route('pesan.detail', ':queryId')}}';
+            pesanUrlGet = pesanUrlGet.replace(':queryId', id);
+            console.log(pesanUrlGet);
+            var pesanUrlUpdate = '{{route('pesan.read', ':queryId')}}';
+            pesanUrlUpdate = pesanUrlUpdate.replace(':queryId', id);
+
+            $.ajax({
+                url: pesanUrlGet,
+                type: 'GET',
+                success: function(data) {
+                  console.log(data);
+                  $('#kritik').text(data.kritik);
+                  $('#saran').text(data.saran);
+                  $('#pesan').text(data.pesan);
+                  $('#edit-pesan').modal('show');
+
+                  $.ajax({
+                      url: pesanUrlUpdate,
+                      type: 'GET',
+                      success: function(data) {
+                        console.log(data);
+                      }
+                  });
+                }
+            });
+       });
     });
 </script>
 
@@ -296,6 +335,34 @@
             content_css: '//www.tiny.cloud/css/codepen.min.css'
         });
 </script>
+<script>
+  const togglePassword1 = document.querySelector("#togglePassword1");
+        const togglePassword2 = document.querySelector("#togglePassword2");
+        const password1 = document.querySelector("#password1");
+        const password2 = document.querySelector("#password2");
+      
+      togglePassword1.addEventListener("click", function () {
+          // toggle the type attribute
+          const type = password1.getAttribute("type") === "password" ? "text" : "password";
+          console.log(type);
+        password1.setAttribute("type", type);
+        // toggle the eye icon
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+
+      togglePassword2.addEventListener("click", function () {
+          // toggle the type attribute
+          const type = password2.getAttribute("type") === "password" ? "text" : "password";
+          console.log(type);
+        password2.setAttribute("type", type);
+        // toggle the eye icon
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+</script>
+
+
 
 @include('vendor.sweetalert.alert')
 </body>

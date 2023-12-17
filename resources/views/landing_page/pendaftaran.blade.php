@@ -20,20 +20,24 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama">Nama</label>
-                            <input type="text" class="form-control form-control-sm" id="nama" name="nama" placeholder="Nama" value="{{old('nama')}}">
+                            <input type="text" class="form-control form-control-sm @error('nama') invalid @enderror" id="nama" name="nama" placeholder="Nama" value="{{old('nama')}}">
                         </div>
+                        @error('nama') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Email" value="{{old('email')}}">
+                            <input type="email" class="form-control form-control-sm @error('email') invalid @enderror" id="email" name="email" placeholder="Email" value="{{old('email')}}">
                         </div>
+                        @error('email') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="nim">NIM</label>
-                            <input type="number" class="form-control form-control-sm" id="nim" name="nim" placeholder="NIM" value="{{old('nim')}}">
+                            <input type="number" class="form-control form-control-sm @error('nim') invalid @enderror" id="nim" name="nim" placeholder="NIM" value="{{old('nim')}}">
                         </div>
+                        @error('nim') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="kontak">Kontak</label>
-                            <input type="number" class="form-control form-control-sm" id="kontak" name="kontak" placeholder="Kontak" value="{{old('kontak')}}">
+                            <input type="number" class="form-control form-control-sm @error('kontak') invalid @enderror" id="kontak" name="kontak" placeholder="Kontak" value="{{old('kontak')}}">
                         </div>
+                        @error('kontak') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="kelas">Kelas</label>
                             <div class="form-check">
@@ -61,6 +65,7 @@
                                 <label class="form-check-label">MTK 21 B</label>
                             </div>                      
                         </div>
+                        @error('kelas') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="kepengurusan_periode_sebelumnya">Kepengurusan Periode Sebelumnya</label>
                             <div class="form-check">
@@ -76,15 +81,17 @@
                                 <label class="form-check-label">HMPS-MTK Periode 2022-2023 </label>
                             </div>
                         </div>
+                        @error('kepengurusan_sebelumnya') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="tujuan">Tujuan Menjadi Pengurus DEMA</label>
-                            <input type="text" class="form-control form-control-sm" id="tujuan" name="tujuan" placeholder="Tujuan Menjadi Pengurus DEMA" value="{{old('tujuan')}}">
+                            <input type="text" class="form-control form-control-sm @error('tujuan') invalid @enderror" id="tujuan" name="tujuan" placeholder="Tujuan Menjadi Pengurus DEMA" value="{{old('tujuan')}}">
                         </div>
+                        @error('tujuan') <p class="text-red">{{$message}}</p> @enderror
                         <div class="form-group">
                             <label for="file_syarat">File Syarat Kepengurusan Dema *File di gabungkan dalam bentuk Pdf.</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="file" name="file_syarat">
+                                    <input type="file" class="custom-file-input @error('file_syarat') invalid @enderror" id="file" name="file_syarat">
                                     <label class="custom-file-label" for="file">Choose file</label>
                                 </div>
                                 <div class="input-group-append">
@@ -92,6 +99,7 @@
                                 </div>
                             </div>
                         </div>
+                        @error('file_syarat') <p class="text-red">{{$message}}</p> @enderror
                         <input type="hidden" name="konfirmasi" value="0">
                     </div>
         

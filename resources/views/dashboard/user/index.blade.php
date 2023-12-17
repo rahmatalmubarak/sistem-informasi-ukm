@@ -101,24 +101,42 @@ User
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" placeholder="username" name="username" value="{{old('username')}}">
+                        <input type="text" class="form-control @error('username') invalid @enderror" placeholder="username" name="username" value="{{old('username')}}">
+                        @error('username') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password" value="{{old('password')}}">
+                        <div class="d-flex">
+                            <input type="password" class="form-control @error('password') invalid @enderror" placeholder="Password" name="password" id="password1" value="{{old('password')}}">
+                            <span class="password-show">
+                                <i class="fa fa-eye" id="togglePassword1" style="cursor: pointer"></i>
+                            </span>
+                        </div>
+                        @error('password') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" placeholder="Email" name="email" value="{{old('email')}}">
+                        <input type="email" class="form-control @error('email') invalid @enderror" placeholder="Email" name="email" value="{{old('email')}}">
+                        @error('email') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="ormawa_id">Admin Ormawa</label>
+                        <select class="form-control @error('ormawa_id') invalid @enderror" name="ormawa_id" id="ormawa_id" value="{{old('ormawa_id')}}">
+                            <option value="">Pilih</option>
+                            @foreach ($ormawa_list as $ormawa)
+                            <option value="{{$ormawa->id}}">{{$ormawa->nama}}</option>
+                            @endforeach
+                        </select>
+                        @error('ormawa_id') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="role_id">Role/level</label>
-                        <select class="form-control" name="role_id">
+                        <select class="form-control @error('role_id') invalid @enderror" name="role_id">
                             <option value="">Pilih</option>
                             <option value="1" @if (old('role_id') == 1 ) selected @endif>Super Admin</option>
                             <option value="2" @if (old('role_id') == 2 ) selected @endif>Admin</option>
-                            <option value="3" @if (old('role_id') == 3 ) selected @endif>Pendaftar</option>
                         </select>
+                        @error('role_id') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -146,24 +164,42 @@ User
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="username" name="username" value="{{old('username')}}">
+                        <input type="text" class="form-control @error('username') invalid @enderror" id="username" placeholder="username" name="username" value="{{old('username')}}">
+                        @error('username') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="{{old('password')}}">
+                        <div class="d-flex">
+                            <input type="password" class="form-control @error('password') invalid @enderror" placeholder="Password" name="password" id="password2" value="{{old('password')}}">
+                            <span class="password-show">
+                                <i class="fa fa-eye" id="togglePassword2" style="cursor: pointer"></i>
+                            </span>
+                            @error('password') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{old('email')}}">
+                        <input type="email" class="form-control @error('email') invalid @enderror" id="email" placeholder="Email" name="email" value="{{old('email')}}">
+                        @error('email') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="ormawa_id">Admin Ormawa</label>
+                        <select class="form-control @error('ormawa_id') invalid @enderror" name="ormawa_id" id="ormawa_id" value="{{old('ormawa_id')}}">
+                            <option value="">Pilih</option>
+                            @foreach ($ormawa_list as $ormawa)
+                                <option value="{{$ormawa->id}}">{{$ormawa->nama}}</option>
+                            @endforeach
+                        </select>
+                        @error('ormawa_id') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="role_id">Role/level</label>
-                        <select class="form-control" name="role_id" id="role_id" value="{{old('role_id')}}">
+                        <select class="form-control @error('role_id') invalid @enderror" name="role_id" id="role_id" value="{{old('role_id')}}">
                             <option value="">Pilih</option>
                             <option value="1">Super Admin</option>
                             <option value="2">Admin</option>
-                            <option value="3">Pendaftar</option>
                         </select>
+                        @error('role_id') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">

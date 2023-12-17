@@ -8,6 +8,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OrmawaController;
 use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\PesanController;
 use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\StatusLaporanController;
 use App\Http\Controllers\UserController;
@@ -30,15 +31,17 @@ Route::get('/', function() {
     return redirect()->route('landing_page');
 });
 Route::get('/home', [LandingPageController::class, 'index'])->name('landing_page');
+Route::get('/postingan', [LandingPageController::class, 'postingan'])->name('landing_page.postingan-ormawa');
+Route::get('/ormawa', [LandingPageController::class, 'ormawa'])->name('landing_page.ormawa');
+Route::get('/pengurus/pengurus-periode', [LandingPageController::class, 'pengurus'])->name('landing_page.pengurus');
+Route::get('/kontak', [LandingPageController::class, 'kontak'])->name('landing_page.kontak');
 Route::get('/home/read-postingan/{id}', [LandingPageController::class, 'read_postingan'])->name('landing_page.read_postingan');
-Route::get('/home/postingan-ormawa', [LandingPageController::class, 'postingan'])->name('landing_page.postingan-ormawa');
-Route::get('/home/pengurus/periode', [LandingPageController::class, 'pengurus'])->name('landing_page.pengurus');
-Route::get('/home/pengurus/daftar', [LandingPageController::class, 'daftar_pengurus'])->name('landing_page.daftar_pengurus');
+Route::get('/home/pencarian/postingan', [LandingPageController::class, 'cari'])->name('landing_page.postingan.cari');
+Route::get('/pengurus/daftar-pengurus', [LandingPageController::class, 'daftar_pengurus'])->name('landing_page.daftar_pengurus');
+Route::get('/pengurus/daftar-pengurus/cari', [LandingPageController::class, 'cari_pengurus'])->name('landing_page.cari_pengurus');
 Route::get('/ormawa/{id}/open-recruitment', [LandingPageController::class, 'open_recruitment'])->name('landing_page.open-recruitment');
 Route::get('/ormawa/{id}/pendaftaran', [LandingPageController::class, 'pendaftaran'])->name('landing_page.pendaftaran');
-Route::get('/home/ormawa/detail/{slug}', [LandingPageController::class, 'detail_ormawa'])->name('landing_page.detail_ormawa');
-Route::get('/home/ormawa', [LandingPageController::class, 'ormawa'])->name('landing_page.ormawa');
-Route::get('/kontak', [LandingPageController::class, 'kontak'])->name('landing_page.kontak');
+Route::get('/detail-ormawa/{slug}', [LandingPageController::class, 'detail_ormawa'])->name('landing_page.detail_ormawa');
 Route::post('/kontak/store', [LandingPageController::class, 'message'])->name('landing_page.message');
 
 // Auth
@@ -71,7 +74,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/dashboard/postingan/{id}/delete', [PostinganController::class, 'destroy'])->name('postingan.delete');
     Route::get('/dashboard/postingan/{id}/detail', [PostinganController::class, 'show'])->name('postingan.detail');
 
-
     // Laporan
     Route::get('/dashboard/laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/dashboard/laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
@@ -82,6 +84,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/dashboard/laporan/{id}/delete', [LaporanController::class, 'destroy'])->name('laporan.delete');
     Route::get('/dashboard/laporan/{id}/detail', [LaporanController::class, 'show'])->name('laporan.detail');
     Route::get('/dashboard/laporan/{id}/download', [LaporanController::class, 'download'])->name('laporan.download');
+
+    // Pesan
+    Route::get('/dashboard/pesan', [PesanController::class, 'index'])->name('pesan.index');
+    Route::get('/dashboard/pesan/cari', [PesanController::class, 'cari'])->name('pesan.cari');
+    Route::delete('/dashboard/pesan/{id}/delete', [PesanController::class, 'destroy'])->name('pesan.delete');
+    Route::get('/dashboard/pesan/{id}/read', [PesanController::class, 'read'])->name('pesan.read');
+    Route::get('/dashboard/pesan/{id}/detail', [PesanController::class, 'show'])->name('pesan.detail');
 
     // Kegiatan
     Route::post('/dashboard/kegiatan/store', [KegiatanController::class, 'store'])->name('kegiatan.store');
@@ -96,7 +105,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/dashboard/arsip/{id}/update', [ArsipController::class, 'update'])->name('arsip.update');
     Route::delete('/dashboard/arsip/{id}/delete', [ArsipController::class, 'destroy'])->name('arsip.delete');
     Route::get('/dashboard/arsip/{id}/detail', [ArsipController::class, 'show'])->name('arsip.detail');
-    Route::get('/dashboard/arsip/{id}/download', [ArsipController::class, 'download'])->name('arsip.download');
 });
 
 
@@ -158,6 +166,7 @@ Route::middleware(['auth', 'role:super admin,admin'])->group(function() {
     Route::get('/dashboard/arsip', [ArsipController::class, 'index'])->name('arsip.index');
     Route::get('/dashboard/arsip/create', [ArsipController::class, 'create'])->name('arsip.create');
     Route::get('/dashboard/arsip/cari', [ArsipController::class, 'cari'])->name('arsip.cari');
+    Route::get('/dashboard/arsip/{id}/download', [ArsipController::class, 'download'])->name('arsip.download');
 });
 
 

@@ -9,6 +9,7 @@ use App\Models\Ormawa;
 use App\Models\Pendaftar;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -17,14 +18,20 @@ class DashboardController extends Controller
         $user_all = User::all();
         $ormawa_all = Ormawa::all();
         $kegiatan_all = Kegiatan::all();
+        if(Auth::user()->role->id == 2){
+            $pendaftar_list = Pendaftar::where('ormawa_id', Auth::user()->ormawa->id)->get();
+            $laporan_list = Laporan::where('ormawa_id', Auth::user()->ormawa->id)->get();
+            $kegiatan_list = Kegiatan::where('ormawa_id', Auth::user()->ormawa->id)->get();
+            $arsip_list = Arsip::where('ormawa_id', Auth::user()->ormawa->id)->get();
+            
+            return view('dashboard.index', compact([
+                'user_all', 'ormawa_all', 'kegiatan_all', 'pendaftar_list','laporan_list', 'kegiatan_list','arsip_list'
+            ]));
+        }
 
-        $pendaftar_list = Pendaftar::where('ormawa_id', 1)->get();
-        $laporan_list = Laporan::where('ormawa_id', 1)->get();
-        $kegiatan_list = Kegiatan::where('ormawa_id', 1)->get();
-        $arsip_list = Arsip::where('ormawa_id', 1)->get();
 
         return view('dashboard.index', compact([
-            'user_all', 'ormawa_all', 'kegiatan_all', 'pendaftar_list','laporan_list', 'kegiatan_list','arsip_list'
+            'user_all', 'ormawa_all', 'kegiatan_all'
         ]));
     }
 }

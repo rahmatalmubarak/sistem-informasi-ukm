@@ -28,11 +28,13 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-2 mb-3 ml-5 d-flex justify-content-start">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kegiatan">
-                        Tambah Kegiatan
-                    </button>
-                </div>
+                @if (Auth::user()->role->id == 2)
+                    <div class="col-2 mb-3 ml-5 d-flex justify-content-start">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kegiatan">
+                            Tambah Kegiatan
+                        </button>
+                    </div>
+                @endif
                 <div class="col-12">
                     <div class="card">            
                         <div class="card-body table-responsive p-0">
@@ -114,31 +116,37 @@
                     <input type="hidden" value="{{$ormawa->id}}" name="ormawa_id">
                     <div class="form-group">
                         <label for="nama">Nama Kegiatan</label>
-                        <input type="text" class="form-control" placeholder="nama" name="nama" value="{{old('nama')}}">
+                        <input type="text" class="form-control @error('nama') invalid @enderror" placeholder="nama" name="nama" value="{{old('nama')}}">
+                        @error('nama') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="jenis">Jenis Kegiatan</label>
-                        <select class="form-control" name="jenis">
+                        <select class="form-control @error('jenis') invalid @enderror" name="jenis">
                             <option value="rapat">Rapat</option>
                             <option value="pelatihan">Pelatihan</option>
                             <option value="acara">Acara</option>
                         </select>
+                        @error('jenis') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_mulai">Tanggal dan Waktu Mulai Kegiatan</label>
-                        <input type="date" class="form-control" placeholder="tgl_mulai" name="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        <input type="date" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        @error('tgl_mulai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal dan Waktu Selesai Kegiatan</label>
-                        <input type="date" class="form-control" placeholder="tgl_selesai" name="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        <input type="date" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        @error('tgl_selesai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="penanggung_jawab">Penanggung Jawab</label>
-                        <input type="text" class="form-control" placeholder="penanggung_jawab" name="penanggung_jawab" value="{{old('penanggung_jawab')}}">
+                        <input type="text" class="form-control @error('penanggung_jawab') invalid @enderror" placeholder="penanggung_jawab" name="penanggung_jawab" value="{{old('penanggung_jawab')}}">
+                        @error('penanggung_jawab') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tempat">Tempat</label>
-                        <input type="text" class="form-control" placeholder="tempat" name="tempat" value="{{old('tempat')}}">
+                        <input type="text" class="form-control @error('tempat') invalid @enderror" placeholder="tempat" name="tempat" value="{{old('tempat')}}">
+                        @error('tempat') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
@@ -167,32 +175,38 @@
                     <input type="hidden" name="ormawa_id" value="{{$ormawa->id}}">
                     <div class="form-group">
                         <label for="nama">Nama Kegiatan</label>
-                        <input type="text" class="form-control" placeholder="nama" name="nama" id="nama" value="{{old('nama')}}">
+                        <input type="text" class="form-control @error('nama') invalid @enderror" placeholder="nama" name="nama" id="nama" value="{{old('nama')}}">
+                        @error('nama') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="jenis">Jenis Kegiatan</label>
-                        <select class="form-control" name="jenis" id="jenis">
+                        <select class="form-control @error('jenis') invalid @enderror" name="jenis" id="jenis">
                             <option value="rapat">Rapat</option>
                             <option value="pelatihan">Pelatihan</option>
                             <option value="acara">Acara</option>
                         </select>
+                        @error('jenis') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_mulai">Tanggal dan Waktu Mulai Kegiatan</label>
-                        <input type="date" class="form-control" placeholder="tgl_mulai" name="tgl_mulai" id="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        <input type="date" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" id="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        @error('tgl_mulai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal dan Waktu Selesai Kegiatan</label>
-                        <input type="date" class="form-control" placeholder="tgl_selesai" name="tgl_selesai" id="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        <input type="date" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" id="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        @error('tgl_selesai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="penanggung_jawab">Penanggung Jawab</label>
-                        <input type="text" class="form-control" placeholder="penanggung_jawab" name="penanggung_jawab" id="penanggung_jawab"
+                        <input type="text" class="form-control @error('penanggung_jawab') invalid @enderror" placeholder="penanggung_jawab" name="penanggung_jawab" id="penanggung_jawab"
                             value="{{old('penanggung_jawab')}}">
+                        @error('penanggung_jawab') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tempat">Tempat</label>
-                        <input type="text" class="form-control" placeholder="tempat" name="tempat" id="tempat" value="{{old('tempat')}}">
+                        <input type="text" class="form-control @error('tempat') invalid @enderror" placeholder="tempat" name="tempat" id="tempat" value="{{old('tempat')}}">
+                        @error('tempat') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">
