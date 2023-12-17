@@ -19,7 +19,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                <a href="{{ route('landing_page') }}" class="nav-link @if ($segment == '') active @endif">
+                <a href="{{ route('landing_page') }}" class="nav-link">
                     <i class="nav-icon fas fa-globe"></i>
                     <p>
                         Website
