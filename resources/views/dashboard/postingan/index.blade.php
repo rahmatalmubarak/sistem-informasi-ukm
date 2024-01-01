@@ -53,11 +53,12 @@ Postingan
                                                     <a href="{{ route('postingan.edit', ['id'=>$postingan->id]) }}" class="btn btn-primary mr-1" >
                                                         <i class="nav-icon fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('postingan.delete', ['id' => $postingan->id]) }}" method="post">
+                                                    {{-- <form action="{{ route('postingan.delete', ['id' => $postingan->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    <button class="btn btn-danger" onclick="hapus('{{ route('postingan.delete', ['id' => $postingan->id]) }}')" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach

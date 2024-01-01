@@ -23,4 +23,9 @@ class Postingan extends Model
     {
         return $this->belongsTo(Ormawa::class);
     }
+
+    public function gambar()
+    {
+        return $this->hasMany(PhotoPostingan::class);
+    }
 }

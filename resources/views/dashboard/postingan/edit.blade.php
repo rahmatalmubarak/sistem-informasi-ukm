@@ -42,9 +42,20 @@ Ubah Postingan
                                         </div>
                                     </div>
                                     <div class="col-6 pr-0">
+                                        @if ($postingan->gambar->count() > 0)
+                                        <p class="text-danger" style="font-size: 15px">Gambar yang dihapus tidak bisa dikembalikan lagi</p>
+                                            <div class="d-flex flex-wrap">
+                                                @foreach ($postingan->gambar as $index => $gambar)
+                                                    <div class="ml-1 d-flex" data-index="{{$index}}">
+                                                        <img src="{{Storage::url('public/img/data/'.$gambar->gambar)}}" alt="" style="height:80px; object-fit: cover;margin-bottom:5px">  
+                                                        <span id="remove-image" style="margin-top: -10px; margin-left: -5px; cursor: pointer; " data-slug="{{$gambar->gambar}}" data-index="{{$index}}" data-postingan="{{$postingan->id}}"><i class="fas fa-times"></i></span>                                          
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <div class="form-group">
                                             <label for="gambar">Gambar</label>
-                                            <input type="file" class="form-control form-control-sm @error('gambar') is-invalid @enderror" name="gambar" id="gambar">
+                                            <input type="file" class="form-control form-control-sm @error('gambar') is-invalid @enderror" name="gambar[]" id="gambar" multiple>
                                             @error('gambar') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                                         </div>
                                         <div class="form-group">

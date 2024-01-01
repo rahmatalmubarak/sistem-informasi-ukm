@@ -69,11 +69,13 @@
                                                         <a href="javascript:void(0)" class="btn btn-primary mr-1"  id="show-kegiatan" data-target="#edit-kegiatan" data-item-id="{{$kegiatan->id}}">
                                                             <i class="nav-icon fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('kegiatan.delete', ['id' => $kegiatan->id]) }}" method="post">
+                                                        {{-- <form action="{{ route('kegiatan.delete', ['id' => $kegiatan->id]) }}" method="post">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                        </form>
+                                                        </form> --}}
+                                                        <button class="btn btn-danger" onclick="hapus('{{ route('kegiatan.delete', ['id' => $kegiatan->id]) }}')" type="submit"><i
+                                                                class="nav-icon fas fa-trash-alt"></i></button>
                                                     </td>
                                                 @endif
                                             </tr>

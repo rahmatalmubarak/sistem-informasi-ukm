@@ -30,7 +30,7 @@ Pesan
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Pesan</th>
+                                        <th>Pengirim</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -39,7 +39,7 @@ Pesan
                                         @foreach ($pesan_list as $index => $pesan)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{substr($pesan->pesan,0,15)}}</td>
+                                                <td>{{substr($pesan->pengirim,0,15)}}</td>
                                                 <td class="d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-primary mr-1" id="show-pesan" data-target="#edit-pesan" data-item-id="{{$pesan->id}}">
                                                         Baca
@@ -108,19 +108,6 @@ Pesan
                             </div>
                             <div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
                                 <div class="card-body" id="saran">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h4 class="card-title w-100">
-                                    <a class="d-block w-100" data-toggle="collapse" href="#collapseThree" aria-expanded="true">
-                                        Pesan
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body" id="pesan">
                                 </div>
                             </div>
                         </div>

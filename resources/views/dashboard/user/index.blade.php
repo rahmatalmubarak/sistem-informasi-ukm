@@ -55,12 +55,13 @@ User
                                                     <a href="javascript:void(0)" class="btn btn-primary mr-1"  id="show-user" data-target="#edit-user" data-item-id="{{$user->id}}">
                                                         <i class="nav-icon fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="post">
+                                                    {{-- <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         
-                                                        <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                        <button class="btn btn-danger show_confirm" data-confirm-delete="true"  type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
+                                                    </form> --}}
+                                                    <button class="btn btn-danger" onclick="hapus('{{route('user.delete', ['id' => $user->id])}}')" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -119,7 +120,7 @@ User
                         <input type="email" class="form-control @error('email') invalid @enderror" placeholder="Email" name="email" value="{{old('email')}}">
                         @error('email') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="admin_ormawa">
                         <label for="ormawa_id">Admin Ormawa</label>
                         <select class="form-control @error('ormawa_id') invalid @enderror" name="ormawa_id" id="ormawa_id" value="{{old('ormawa_id')}}">
                             <option value="">Pilih</option>
@@ -131,7 +132,7 @@ User
                     </div>
                     <div class="form-group">
                         <label for="role_id">Role/level</label>
-                        <select class="form-control @error('role_id') invalid @enderror" name="role_id">
+                        <select class="form-control @error('role_id') invalid @enderror" name="role_id" id="role_id">
                             <option value="">Pilih</option>
                             <option value="1" @if (old('role_id') == 1 ) selected @endif>Super Admin</option>
                             <option value="2" @if (old('role_id') == 2 ) selected @endif>Admin</option>
@@ -182,9 +183,9 @@ User
                         <input type="email" class="form-control @error('email') invalid @enderror" id="email" placeholder="Email" name="email" value="{{old('email')}}">
                         @error('email') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="admin_ormawa_edit">
                         <label for="ormawa_id">Admin Ormawa</label>
-                        <select class="form-control @error('ormawa_id') invalid @enderror" name="ormawa_id" id="ormawa_id" value="{{old('ormawa_id')}}">
+                        <select class="form-control @error('ormawa_id') invalid @enderror" name="ormawa_id" id="ormawa_id_edit" value="{{old('ormawa_id')}}">
                             <option value="">Pilih</option>
                             @foreach ($ormawa_list as $ormawa)
                                 <option value="{{$ormawa->id}}">{{$ormawa->nama}}</option>
@@ -194,7 +195,7 @@ User
                     </div>
                     <div class="form-group">
                         <label for="role_id">Role/level</label>
-                        <select class="form-control @error('role_id') invalid @enderror" name="role_id" id="role_id" value="{{old('role_id')}}">
+                        <select class="form-control @error('role_id') invalid @enderror" name="role_id" id="role_id_edit" value="{{old('role_id')}}">
                             <option value="">Pilih</option>
                             <option value="1">Super Admin</option>
                             <option value="2">Admin</option>

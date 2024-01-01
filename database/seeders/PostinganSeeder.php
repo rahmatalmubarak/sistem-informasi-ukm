@@ -19,7 +19,6 @@ class PostinganSeeder extends Seeder
             [
                 'ormawa_id' => 1,
                 'judul' => 'Open Recruitment Ormawa DEMA FST',
-                'gambar' => '',
                 'headline' => '',
                 'content' => '',
                 'kategori' => 'pengumuman',
@@ -28,7 +27,6 @@ class PostinganSeeder extends Seeder
             [
                 'ormawa_id' => 2,
                 'judul' => 'Open Recruitment Ormawa SEMA FST',
-                'gambar' => '',
                 'headline' => '',
                 'content' => '',
                 'kategori' => 'pengumuman',
@@ -37,7 +35,6 @@ class PostinganSeeder extends Seeder
             [
                 'ormawa_id' => 3,
                 'judul' => 'Open Recruitment Ormawa HMPS MTK',
-                'gambar' => '',
                 'headline' => '',
                 'content' => '',
                 'kategori' => 'pengumuman',
@@ -46,7 +43,6 @@ class PostinganSeeder extends Seeder
             [
                 'ormawa_id' => 4,
                 'judul' => 'Open Recruitment Ormawa HMPS SI',
-                'gambar' => '',
                 'headline' => '',
                 'content' => '',
                 'kategori' => 'pengumuman',
@@ -61,7 +57,5 @@ class PostinganSeeder extends Seeder
             }
         }
         Postingan::factory()->count(11)->create();
-
-        
     }
 }

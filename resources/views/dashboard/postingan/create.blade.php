@@ -44,7 +44,7 @@ Buat Postingan
                                     <div class="col-6 pr-0">
                                         <div class="form-group">
                                             <label for="gambar">Gambar</label>
-                                            <input type="file" class="form-control form-control-sm @error('gambar') is-invalid @enderror" name="gambar" id="gambar">
+                                            <input type="file" class="form-control form-control-sm @error('gambar') is-invalid @enderror" name="gambar[]" id="gambar" multiple style="height: 35px">
                                             @error('gambar') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                                         </div>
                                         <div class="form-group">

@@ -128,7 +128,7 @@ class PendaftarController extends Controller
         Storage::delete('public/img/pendaftar/' . $pendaftar->foto);
         Pendaftar::destroy($id);
         Alert::success('Berhasil', 'Data Berhasil Dihapus!');
-        return redirect()->route('pendaftar.index');
+        return response()->json(['message' => 'success']);
     }
 
     public function download($id){

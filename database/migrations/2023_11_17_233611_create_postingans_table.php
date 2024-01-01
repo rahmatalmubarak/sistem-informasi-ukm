@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('postingans', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('ormawa_id')->unsigned();
-            $table->string('judul',50);
-            $table->string('headline',50)->nullable();
+            $table->string('judul',255);
+            $table->string('headline',255)->nullable();
             $table->text('content')->nullable();
-            $table->string('gambar',100)->nullable();
-            $table->string('kategori',25);
+            $table->string('gambar',255)->nullable();
+            $table->string('kategori',50);
             $table->date('tgl_post')->nullable();
             $table->timestamps();
 

@@ -21,12 +21,15 @@ class UserController extends Controller
     {
         $user_list = User::paginate(10);
         $ormawa_list = Ormawa::all();
+
         return view('dashboard.user.index', compact(['user_list', 'ormawa_list']));
     }
 
     public function cari(Request $request)
     {
-        $user_list = User::where('username', 'LIKE', '%' . $request->cari . '%')->paginate(10);
+        $user_list = User::where('username', 'LIKE', '%' . $request->cari . '%')
+                        ->where('email', 'LIKE', '%' . $request->cari . '%')    
+                        ->paginate(10);
         $ormawa_list = Ormawa::all();
         return view('dashboard.user.index', compact(['user_list', 'ormawa_list']));
     }
@@ -54,7 +57,6 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required',
             'role_id' => 'required',
-            'ormawa_id' => 'required'
         ]);
         
         User::create([
@@ -112,7 +114,6 @@ class UserController extends Controller
                 'username' => 'required',
                 'email' => 'required',
                 'role_id' => 'required',
-                'ormawa_id' => 'required'
         ]);
 
         // cek apakah password juga diganti 
@@ -144,6 +145,6 @@ class UserController extends Controller
     {
         User::destroy($id);
         Alert::success('Sukses', 'User berhasil dihapus');
-        return redirect()->route('user.index');
+        return response()->json(['message' => 'success']);
     }
 }

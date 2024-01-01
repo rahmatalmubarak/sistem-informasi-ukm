@@ -21,6 +21,17 @@
     <script>
     </script>
     @include('vendor.sweetalert.alert')
+    <script>
+        $(document).ready(function() {
+          $('#file').change(function() {
+            console.log('asdasd');
+            var filename = $('input[type=file]').val().split('\\').pop();
+            console.log(filename,$('#file'));
+              var lastIndex = filename.lastIndexOf("\\");   
+              $('#nama_file').text(filename);
+          });
+      });
+    </script>
 </body>
 
 </html>

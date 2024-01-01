@@ -21,17 +21,9 @@ class PostinganFactory extends Factory
             "agenda"
         );
 
-        $postingan = array(
-            'postingan1',
-            'postingan2',
-            'postingan3',
-            'postingan4',
-        );
-
         return [
             'ormawa_id' => random_int(1,4),
             'judul' => fake()->jobTitle(),
-            'gambar' => $postingan[array_rand($postingan)] . '.jpg',
             'headline' => substr(fake()->jobTitle(), 100),
             'content' => fake()->realText(),
             'kategori' => $kategori[array_rand($kategori)],

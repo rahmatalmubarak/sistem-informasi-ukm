@@ -50,12 +50,12 @@ Kontak
                                 @method('POST')
                                 @csrf
                                 <div class="form-group">
-                                    <label>Kritik</label>
-                                    <textarea class="form-control" rows="3" name="kritik" placeholder="Kritik"></textarea>
+                                    <label>Pengirim</label>
+                                    <textarea class="form-control" rows="3" name="pengirim" placeholder="Pengirim"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Pesan</label>
-                                    <textarea class="form-control" rows="3" name="pesan" placeholder="Pesan"></textarea>
+                                    <label>Kritik</label>
+                                    <textarea class="form-control" rows="3" name="kritik" placeholder="Kritik"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Saran</label>

@@ -56,5 +56,8 @@
         color: rgb(24, 24, 24);
     }
 
+    .card-body > a > p:hover {
+        color: #c53d4a;
+    }
 
 </style>

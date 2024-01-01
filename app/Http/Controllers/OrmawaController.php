@@ -134,7 +134,7 @@ class OrmawaController extends Controller
         Storage::delete('public/img/data/' . $ormawa->logo);
         Ormawa::destroy($id);
         Alert::success('Sukses', 'Data Berhasil Dihapus!');
-        return redirect()->route('ormawa.index');
+        return response()->json(['message' => 'success']);
     }
 
 

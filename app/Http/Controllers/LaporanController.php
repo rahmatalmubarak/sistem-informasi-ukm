@@ -152,7 +152,7 @@ class LaporanController extends Controller
         Storage::delete('public/file/data/' . $laporan->file);
         Laporan::destroy($id);
         Alert::success('Berhasil', 'Data Berhasil Dihapus!');
-        return redirect()->route('laporan.index');
+        return response()->json(['message' => 'success']);
     }
 
     public function download($id)

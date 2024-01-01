@@ -127,10 +127,10 @@ class StatusLaporanController extends Controller
     {
         $status_laporan = StatusLaporan::find($id);
         $isAktif = 0;
-        if($status_laporan->status == 1){
-            $isAktif = 0;
-        }else{
+        if($status_laporan->status == 2){
             $isAktif = 1;
+        }else{
+            $isAktif = 2;
         }
         $status_laporan->update([
             'status' => $isAktif

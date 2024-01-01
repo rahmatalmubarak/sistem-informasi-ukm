@@ -40,4 +40,8 @@ class Ormawa extends Model
         return $this->hasOne(Postingan::class);
     }
     
+    public function informasi_ormawa()
+    {
+        return $this->hasOne(InformasiOrmawa::class);
+    }
 }

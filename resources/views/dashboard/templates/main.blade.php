@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
   <link rel="icon" type="image/x-icon" href="{{ asset('img/siomah.png') }}" >
   <!-- Google Font: Source Sans Pro -->
@@ -25,6 +26,13 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
+  <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css">
+
+  <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"></script>
 </head>
 
 <style>
@@ -55,6 +63,10 @@
         z-index: 999999;
         top: 31%;
         right: 4%;
+  }
+
+  #remove-image:hover {
+    color: #e23939;
   }
 </style>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -111,7 +123,6 @@
 <!-- ChartJS -->
 <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
 <!-- JQVMap -->
 <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
@@ -128,10 +139,11 @@
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.js') }}"></script>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="{{ asset('') }}js/demo.js"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('js/pages/dashboard.js') }}"></script>
+{{-- <script src="{{ asset('js/pages/dashboard.js') }}"></script> --}}
 <script type="text/javascript">
   $(document).ready(function () {
         $('body').on('click', '#show-user', function () {
@@ -146,16 +158,23 @@
                 url: userUrlGet,
                 type: 'GET',
                 success: function(data) {
-                  // console.log(data);
                   $('#username').val(data.user.username);
                   $('#email').val(data.user.email);
                   
-                  $('#role_id').attr('data-status', data.user.role_id);
-                  var role_id = $("#role_id").data("status");
-                  var roles = $('#role_id option[value="'+ role_id +'"]').prop('selected', true);
-                  $('#ormawa_id').attr('data-status', data.user.ormawa_id);
-                  var ormawa_id = $("#ormawa_id").data("status");
-                  var ormawa = $('#ormawa_id option[value="'+ ormawa_id +'"]').prop('selected', true);
+                  var roles = $('#role_id_edit option[value="'+ data.user.role_id +'"]').prop('selected', true);
+                  var role = $('#role_id_edit').find(':selected').val()
+                  if(role == '1'){
+                    $('#admin_ormawa_edit').hide();
+                    $('.password-show').css({'top' : '37%'});
+                  }else{
+                    $('#admin_ormawa_edit').show();
+                    $('.password-show').css({'top' : '31%'});
+                  }
+
+                  $('#ormawa_id_edit option[value="'+ data.user.ormawa_id +'"]').prop('selected', true);
+                  // $('#ormawa_id').attr('data-status', data.user.ormawa_id);
+                  // var ormawa_id = $("#ormawa_id").data("status");
+                  // var ormawa = $('#ormawa_id option[value="'+ ormawa_id +'"]').prop('selected', true);
                   $('#edit-user').modal('show');
 
                   $('#editUser').attr('action',userUrlUpdate );
@@ -176,8 +195,9 @@
                 type: 'GET',
                 success: function(data) {
                   let logo = $('#logo').attr('src');
-                  console.log(logo);
-                  logo = logo + data.logo;
+                  if(!logo.includes(data.logo)){
+                    logo = logo + data.logo;
+                  }
                   $('#logo').prop('src', logo);
                   $('#nama').val(data.nama);
                   $('#deskripsi').val(data.deskripsi);
@@ -189,6 +209,48 @@
                   $('#edit-ormawa').modal('show');
 
                   $('#editOrmawa').attr('action',ormawaUrlUpdate );
+                }
+            });
+       });
+
+       $('body').on('click', '#show-detail-ormawa', function () {
+            var id = $(this).data('item-id');
+            let url_foto = '{{Storage::url('public/img/data/')}}';
+            var informasiOrmawaUrlGet = '{{route('informasi-ormawa.show', ':queryId')}}';
+            informasiOrmawaUrlGet = informasiOrmawaUrlGet.replace(':queryId', id);
+
+            var informasiOrmawaUrlUpdate = '{{route('informasi-ormawa.update', ':queryId')}}';
+            informasiOrmawaUrlUpdate = informasiOrmawaUrlUpdate.replace(':queryId', id);
+
+            $('#ormawa_id').val(id);
+
+            $('#detail-ormawa').modal('show');
+
+            $('#foto_pengurus').prop('src', url_foto);
+            $('#dasar_hukum').val('');
+            $('#visi').val('');
+            $('#misi').val('');
+            $('#proker').val('');
+            $('#informasi').val('');
+
+            $('#detailOrmawa').attr('action',informasiOrmawaUrlUpdate );
+            $.ajax({
+                url: informasiOrmawaUrlGet,
+                type: 'GET',
+                success: function(data) {
+                  if(data.status == 200){
+                    let foto_pengurus = $('#foto_pengurus').attr('src');
+                    if(!foto_pengurus.includes(data.informasi.foto_pengurus)){
+                      foto_pengurus = foto_pengurus + data.informasi.foto_pengurus;
+                    }
+                    $('#foto_pengurus').prop('src', foto_pengurus);
+                    $('#dasar_hukum').val(data.informasi.dasar_hukum);
+                    $('#visi').val(data.informasi.visi);
+                    $('#misi').val(data.informasi.misi);
+                    $('#proker').val(data.informasi.proker);
+                    $('#informasi').val(data.informasi.informasi);
+                  }
+
                 }
             });
        });
@@ -229,8 +291,6 @@
             var laporanUrlGet = '{{route('laporan.detail', ':queryId')}}';
             laporanUrlGet = laporanUrlGet.replace(':queryId', id);
             console.log(laporanUrlGet);
-            var laporanUrlUpdate = '{{route('laporan.update', ':queryId')}}';
-            laporanUrlUpdate = laporanUrlUpdate.replace(':queryId', id);
 
             $.ajax({
                 url: laporanUrlGet,
@@ -239,8 +299,6 @@
                   console.log(data);
                   $('#judul').val(data.judul);
                   $('#edit-laporan').modal('show');
-
-                  $('#editLaporan').attr('action',laporanUrlUpdate );
                 }
             });
        });
@@ -257,7 +315,7 @@
                 url: statusLaporanUrlGet,
                 type: 'GET',
                 success: function(data) {
-                  console.log(data);
+                  console.log(data.catatan);
                   $('#catatan').val(data.catatan);
                   $('#edit-catatan').modal('show');
 
@@ -312,8 +370,41 @@
                   });
                 }
             });
-       });
+       });  
+        $('body').change(function(){
+          var role = $('#role_id').find(':selected').val()
+          if(role == '1'){
+            $('#admin_ormawa').hide();
+            $('.password-show').css({'top' : '37%'});
+          }else{
+            $('#admin_ormawa').show();
+            $('.password-show').css({'top' : '31%'});
+          }
+        })
     });
+    $('body').on('click', '#remove-image', function(){
+      let slug = $(this).data('slug');
+      let index = $(this).data('index');
+      let postingan_id = $(this).data('postingan');
+      let removeImageUrl = '{{route('postingan.remove-image')}}';
+
+      $.ajax({
+        url: removeImageUrl,
+        type: 'POST',
+        data: {
+          '_token' : '{{ csrf_token() }}',
+          'slug' : slug,
+          'postingan_id' : postingan_id
+        },
+        success: function(data){
+          if(data.status == 200){
+            var gambar_postingan = $('div.ml-1.d-flex');
+            $('div').find(`[data-index=${index}]`).remove()
+            console.log(data.message);
+          }
+        }
+      });
+    })
 </script>
 
 <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
@@ -361,9 +452,47 @@
         this.classList.toggle('fa-eye-slash');
       });
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.js"></script>
+<script>
+ function hapus(url) {
+  let token = $("meta[name='csrf-token']").attr("content");
+  console.log(token);
+      swal.fire({
+          title: "Apakah anda yakin ?",
+          text: "Data yang sudah terhapus tidak dapat dikembalikan kembali.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: "Ya, hapus!",
+          closeOnConfirm: false
+      }).then((result) => {
+        if (result) {
+          console.log(result);
+          $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    cache: false,
+                    data: {
+                        "_token": token
+                    },
+                    success:function(response){ 
+                        window.location.reload();
+                    }
+                });
+        }
+          // location.href = route;
+      })
+   }
 
-
-
+</script>
 @include('vendor.sweetalert.alert')
 </body>
 </html>

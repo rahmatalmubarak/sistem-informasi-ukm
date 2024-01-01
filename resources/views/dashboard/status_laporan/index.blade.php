@@ -63,19 +63,21 @@ Status Laporan
                                                 <td>
                                                     @if ($laporan->statusLaporan->status == 1)
                                                     <p class="text-green text-sm">Sudah disetujui </p>
-                                                    @else
+                                                    @elseif ($laporan->statusLaporan->status == 2)
                                                     <p class="text-red text-sm">Ditolak</p>
+                                                    @else
+                                                    <p class="text-warning text-sm">Pending</p>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-white" data-target="#edit-sk"
                                                         data-item-id="{{$laporan->statusLaporan->id}}" @if ($laporan->statusLaporan->status == 1) id="show-sk"  @endif>
-                                                        <i class="nav-icon fas fa-download"></i>
+                                                        <i class="nav-icon fas fa-download @if($laporan->statusLaporan->sk) text-blue @endif"></i>
                                                     </button>
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-white" data-target="#edit-catatan" data-item-id="{{$laporan->statusLaporan->id}}" @if ($laporan->statusLaporan->status == 1) id="show-catatan" @endif>
-                                                        <i class="nav-icon fas fa-pen"></i>
+                                                        <i class="nav-icon fas fa-pen @if($laporan->statusLaporan->catatan) text-blue @endif"></i>
                                                     </button>
                                                 </td>
                                                 <td class="d-flex pr-0">
@@ -89,18 +91,19 @@ Status Laporan
                                                             btn-success
                                                             @endif
                                                             " type="submit">
-                                                            @if ($laporan->statusLaporan->status == 0)
+                                                            @if ($laporan->statusLaporan->status == 0 || $laporan->statusLaporan->status == 2)
                                                                 <i class="nav-icon fas fa-check"></i>
                                                             @else
                                                                 <i class="nav-icon fas fa-times"></i>
                                                             @endif
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('laporan.delete', ['id' => $laporan->id]) }}" method="post">
+                                                    {{-- <form action="{{ route('laporan.delete', ['id' => $laporan->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    {{-- <button class="btn btn-danger" onclick="hapus('{{route('laporan.delete', ['id' => $laporan->id])}}')" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

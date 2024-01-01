@@ -63,11 +63,13 @@ Arsip
                                                 </td>
                                                 @if (Auth::user()->role->id == 2)
                                                 <td class="d-flex pr-0">
-                                                    <form action="{{ route('arsip.delete', ['id' => $arsip->id]) }}" method="post">
+                                                    {{-- <form action="{{ route('arsip.delete', ['id' => $arsip->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    <button class="btn btn-danger" onclick="hapus('{{ route('arsip.delete', ['id' => $arsip->id]) }}')"
+                                                        type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                 </td>
                                                 @endif
                                             </tr>

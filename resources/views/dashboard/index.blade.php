@@ -59,6 +59,19 @@
                         </div>
                     </div>
                     <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <h3>{{$laporan_pending->count()}}</h3>
+                    
+                                <p class="text-bold text-lg">Laporan Pending</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @else
                 <div class="row">

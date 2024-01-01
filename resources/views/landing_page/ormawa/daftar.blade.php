@@ -19,13 +19,13 @@ Open Recruitment
         <div class="col-12 d-flex justify-content-between px-2 mt-3 flex-wrap">
             @foreach ($ormawa_list as $ormawa)
                 <div class="col-md-5 col-sm-6 col-12">
-                    <a href="{{ route('landing_page.detail_ormawa', ['slug'=>str_replace(' ', '-', $ormawa->nama)]) }}">
-                        <div class="info-box bg-info" style="min-height: 150px">
+                    <a style="color: black" href="{{ route('landing_page.detail_ormawa', ['slug'=>str_replace(' ', '-', $ormawa->nama)]) }}">
+                        <div class="info-box" style="min-height: 150px; background-color: #c0c0c0">
                             <span class="info-box-icon p-2" style="width: 140px;">
                                 <img src="{{Storage::url('public/img/data/'.$ormawa->logo)}}" alt="{{$ormawa->gambar}}">
                             </span>
-                    
-                            <div class="info-box-content">
+                            
+                            <div class="info-box-content text-black">
                                 <span class="info-box-text text-bold">{{$ormawa->nama}}</span>
                             </div>
                             <!-- /.info-box-content -->

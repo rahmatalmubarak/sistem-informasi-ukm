@@ -5,7 +5,7 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <div class="container">
         <ul class="navbar-nav">
-            <img style="height: auto; width: 40%; display: block;" src="{{Storage::url('public/img/assets/panel-uinib.png')}}" alt="uinib">
+            <img style="height: auto; width: 40%; display: block;" src="{{Storage::url('public/img/assets/Fakultas Sains dan Teknologi logo.png')}}" alt="uinib">
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item @if ($segment == 'home') active @endif">
@@ -70,7 +70,11 @@
             </li>
             <li class="nav-item">
                 <a class="btn btn-danger" href="{{ route('auth.login') }}">
-                    Login
+                    @if (Auth::user())
+                        Dashboard
+                    @else
+                        Login
+                    @endif
                 </a>
             </li>
         </ul>

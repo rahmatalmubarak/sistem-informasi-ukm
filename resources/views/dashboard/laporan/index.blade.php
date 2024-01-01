@@ -97,14 +97,22 @@ Laporan
                                                     </button>
                                                 </td>
                                                 <td class="d-flex pr-0">
-                                                    <a href="javascript:void(0)" class="btn btn-primary mr-1"  id="show-laporan" data-target="#edit-laporan" data-item-id="{{$laporan->id}}">
-                                                        <i class="nav-icon fas fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('laporan.delete', ['id' => $laporan->id]) }}" method="post">
+                                                    @if ($laporan->statusLaporan->status == 1)
+                                                        <a href="javascript:void(0)" class="btn btn-danger mr-1">
+                                                            <i class="nav-icon fas fa-times"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="javascript:void(0)" class="btn btn-primary mr-1"  id="show-laporan" data-target="#edit-laporan" data-item-id="{{$laporan->id}}">
+                                                            <i class="nav-icon fas fa-edit"></i>
+                                                        </a>
+                                                    @endif
+                                                    {{-- <form action="{{ route('laporan.delete', ['id' => $laporan->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    <button class="btn btn-danger" onclick="hapus('{{ route('laporan.delete', ['id' => $laporan->id]) }}')" type="submit"><i
+                                                            class="nav-icon fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -170,8 +178,7 @@ Laporan
             @method('PUT')
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ubah Catatan</h4>
+                <div class="modal-header">  
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -15,10 +15,10 @@
             <div class="d-flex flex-column align-items-center">
                 <h5 class="text-danger text-bold">Ikuti Kami</h5>
                 <div class="" style="font-size: 50px">
-                    <a href="">
+                    <a href="https://www.instagram.com/fstuinib/?hl=id">
                         <i class="fab fa-instagram text-white"></i>
                     </a>
-                    <a href="">
+                    <a href="https://www.youtube.com/@fakultassainsdanteknologiu1975">
                         <i class="fab fa-youtube text-white"></i>
                     </a>
                 </div>

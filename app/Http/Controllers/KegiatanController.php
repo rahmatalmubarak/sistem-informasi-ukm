@@ -157,7 +157,8 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($id);
         Kegiatan::destroy($id);
         Alert::success('Berhasil', 'Data Berhasil Dihapus!');
-        return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $kegiatan->ormawa_id]);
+        // return redirect()->route('kegiatan.ormawa.kegiatan', ['id' => $kegiatan->ormawa_id]);
+        return response()->json(['message' => 'success']);
     }
 
     public function detail($id)

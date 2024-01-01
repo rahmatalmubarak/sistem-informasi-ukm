@@ -6,7 +6,7 @@ Daftar Periode Pengurus
 
 @section('content')
     <div class="row mt-4">
-            <p>P    engurus / Periode Kepengurusan Ormawa</p>
+            <p>Pengurus / Periode Kepengurusan Ormawa</p>
     </div>
     <div class="row mt-3">
         <div class="col-12 bg-dark d-flex justify-content-center align-items-center text-center w-full height-25" style="height: 130px;">

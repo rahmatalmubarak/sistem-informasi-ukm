@@ -92,10 +92,7 @@
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input @error('file_syarat') invalid @enderror" id="file" name="file_syarat">
-                                    <label class="custom-file-label" for="file">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
+                                    <label class="custom-file-label" for="file" id="nama_file">Choose file</label>
                                 </div>
                             </div>
                         </div>

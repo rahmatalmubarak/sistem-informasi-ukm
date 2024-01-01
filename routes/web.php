@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InformasiOrmawaController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LaporanController;
@@ -73,6 +74,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/dashboard/postingan/{id}/update', [PostinganController::class, 'update'])->name('postingan.update');
     Route::delete('/dashboard/postingan/{id}/delete', [PostinganController::class, 'destroy'])->name('postingan.delete');
     Route::get('/dashboard/postingan/{id}/detail', [PostinganController::class, 'show'])->name('postingan.detail');
+    Route::post('/dashboard/postingan/remove-image', [PostinganController::class, 'removeImage'])->name('postingan.remove-image');
 
     // Laporan
     Route::get('/dashboard/laporan', [LaporanController::class, 'index'])->name('laporan.index');
@@ -127,23 +129,23 @@ Route::middleware(['auth', 'role:super admin'])->group(function() {
     Route::delete('/dashboard/ormawa/{id}/delete', [OrmawaController::class, 'destroy'])->name('ormawa.delete');
     Route::get('/dashboard/ormawa/{id}/detail', [OrmawaController::class, 'show'])->name('ormawa.detail');
 
+    // Informasi Ormawa
+    Route::get('/dashboard/informasi-ormawa/{id}/show', [InformasiOrmawaController::class, 'show'])->name('informasi-ormawa.show');
+    Route::put('/dashboard/informasi-ormawa/{id}/update', [InformasiOrmawaController::class, 'update'])->name('informasi-ormawa.update');
 
     // Status Laporan
     Route::get('/dashboard/status-laporan/{id}/edit', [StatusLaporanController::class, 'edit'])->name('status_laporan.edit');
-    Route::put('/dashboard/status-laporan/{id}/update', [StatusLaporanController::class, 'update'])->name('status_laporan.update');
+    Route::put('/dashboard/status-laporan/{id`}/update', [StatusLaporanController::class, 'update'])->name('status_laporan.update');
     Route::put('/dashboard/status-laporan/{id}/update-catatan', [StatusLaporanController::class, 'updateCatatan'])->name('status_laporan.update-catatan');
     Route::put('/dashboard/status-laporan/{id}/update-sk', [StatusLaporanController::class, 'updateSK'])->name('status_laporan.update-sk');
     Route::put('/dashboard/status-laporan/{id}/update-status', [StatusLaporanController::class, 'updateStatus'])->name('status_laporan.update-status');
     Route::get('/dashboard/status-laporan', [StatusLaporanController::class, 'index'])->name('status_laporan.index');
     Route::get('/dashboard/status-laporan/cari', [StatusLaporanController::class, 'cari'])->name('status_laporan.cari');
-    Route::get('/dashboard/status-laporan/{id}/detail', [StatusLaporanController::class, 'show'])->name('status_laporan.detail');
     Route::get('/dashboard/status-laporan/{id}/download', [StatusLaporanController::class, 'download'])->name('status_laporan.download');
 
     // Kegiatan
     Route::get('/dashboard/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
     Route::get('/dashboard/kegiatan/cari-ormawa', [KegiatanController::class, 'cariOrmawa'])->name('kegiatan.cari-ormawa');
-
-
 
     // Kegiatan
     Route::get('/dashboard/ormawa/{id}/kegiatan', [KegiatanController::class, 'kegiatan'])->name('kegiatan.ormawa.kegiatan');
@@ -167,6 +169,10 @@ Route::middleware(['auth', 'role:super admin,admin'])->group(function() {
     Route::get('/dashboard/arsip/create', [ArsipController::class, 'create'])->name('arsip.create');
     Route::get('/dashboard/arsip/cari', [ArsipController::class, 'cari'])->name('arsip.cari');
     Route::get('/dashboard/arsip/{id}/download', [ArsipController::class, 'download'])->name('arsip.download');
+
+    // Status laporan
+
+    Route::get('/dashboard/status-laporan/{id}/detail', [StatusLaporanController::class, 'show'])->name('status_laporan.detail');
 });
 
 

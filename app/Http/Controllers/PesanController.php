@@ -65,6 +65,6 @@ class PesanController extends Controller
         Storage::delete('public/file/data/' . $pesan->file);
         Pesan::destroy($id);
         Alert::success('Berhasil', 'Data Berhasil Dihapus!');
-        return redirect()->route('pesan.index');
+        return response()->json(['message' => 'success']);
     }
 }

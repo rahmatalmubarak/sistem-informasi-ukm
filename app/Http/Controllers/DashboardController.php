@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use App\Models\Laporan;
 use App\Models\Ormawa;
 use App\Models\Pendaftar;
+use App\Models\StatusLaporan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class DashboardController extends Controller
         $user_all = User::all();
         $ormawa_all = Ormawa::all();
         $kegiatan_all = Kegiatan::all();
+        $laporan_pending = StatusLaporan::where('status', 0)->get();
         if(Auth::user()->role->id == 2){
             $pendaftar_list = Pendaftar::where('ormawa_id', Auth::user()->ormawa->id)->get();
             $laporan_list = Laporan::where('ormawa_id', Auth::user()->ormawa->id)->get();
@@ -31,7 +33,7 @@ class DashboardController extends Controller
 
 
         return view('dashboard.index', compact([
-            'user_all', 'ormawa_all', 'kegiatan_all'
+            'user_all', 'ormawa_all', 'kegiatan_all', 'laporan_pending'
         ]));
     }
 }

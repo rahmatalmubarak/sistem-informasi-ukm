@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Arsip;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ArsipController extends Controller
 {
@@ -118,7 +117,8 @@ class ArsipController extends Controller
         $arsip = Arsip::find($id);
         Storage::delete('public/arsip/data/' . $arsip->file);
         Arsip::destroy($id);
-        return redirect()->route('arsip.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        Alert::success('Berhasil', 'Data berhasil dihapus!');
+        return response()->json(['message' => 'success']);
     }
 
     public function download($id)

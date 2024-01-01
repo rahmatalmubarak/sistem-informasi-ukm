@@ -68,15 +68,18 @@ Pendaftar
                                                 </td>
                                                 <td class="d-flex pr-0">
                                                     
-                                                    <form action="{{ route('pendaftar.delete', ['id' => $pendaftar->id]) }}" method="post">
+                                                    {{-- <form action="{{ route('pendaftar.delete', ['id' => $pendaftar->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         
                                                         <button class="btn btn-danger mr-1" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    
                                                     <a href="{{ route('pendaftar.detail', ['id'=>$pendaftar->id]) }}" class="btn btn-warning">
                                                         Detail
                                                     </a>
+                                                    <button class="btn btn-danger" onclick="hapus('{{ route('pendaftar.delete', ['id' => $pendaftar->id]) }}')"
+                                                        type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -22,11 +22,16 @@ Postingan Ormawa
             @if($postingan_list->count() > 0)
                 @foreach ($postingan_list as $postingan)
                 <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;object-fit: cover;"
-                            src="{{Storage::url('public/img/data/'.$postingan->gambar)}}" data-holder-rendered="true">
+                    <div class="card mb-4 box-shadow shadow-md rounded-md">
+                        <a href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">
+                            <img class="card-img-top" alt="Thumbnail [100%x225]"
+                                style="height: 225px; width: 100%; display: block;object-fit: cover;"
+                                src="{{Storage::url('public/img/data/'.$postingan->gambar[0]->gambar)}}" data-holder-rendered="true">
+                        </a>
                         <div class="card-body">
-                            <p class="card-text">{{$postingan->judul}}</p>
+                            <a style="color: black" href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">
+                                <p class="card-text ">{{$postingan->judul}}</p>
+                            </a>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <span>{{\Carbon\Carbon::parse($postingan->tgl_post)->format('j F Y')}}</span>

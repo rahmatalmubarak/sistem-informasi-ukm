@@ -53,11 +53,18 @@ Ormawa
                                                     <a href="javascript:void(0)" class="btn btn-primary mr-1"  id="show-ormawa" data-target="#edit-ormawa" data-item-id="{{$ormawa->id}}">
                                                         <i class="nav-icon fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('ormawa.delete', ['id' => $ormawa->id]) }}" method="post">
+                                                    <a href="javascript:void(0)" class="btn btn-warning mr-1" id="show-detail-ormawa" data-target="#detail-ormawa"
+                                                        data-item-id="{{$ormawa->id}}">
+                                                        <i class="nav-icon fas fa-info px-1"></i>
+                                                    </a>
+                                                    {{-- <form action="{{ route('ormawa.delete', ['id' => $ormawa->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    </form> --}}
+                                                    <button class="btn btn-danger" onclick="hapus('{{ route('ormawa.delete', ['id' => $ormawa->id]) }}')"
+                                                        type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
+                                                    
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -156,6 +163,67 @@ Ormawa
                         <label for="deskripsi">Deskripsi</label>
                         <textarea class="form-control @error('deskripsi') invalid @enderror" name="deskripsi" cols="30" rows="10" id="deskripsi">{{old('deskripsi')}}</textarea>
                         @error('deskripsi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button type="submit" class="btn btn-primary" >Ubah</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form> 
+    </div>
+</div>
+
+{{-- Modal Detail Ormawa --}}
+<div class="modal fade" id="detail-ormawa">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" id="detailOrmawa" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Tentang Ormawa</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ormawa_id" id="ormawa_id">
+                    <label for="foto_pengurus">Foto Pengurus</label>
+                    <div class="col-12 d-flex">
+                        <div class="col-3">
+                            <img style="width: 150px;height: auto; " src="{{Storage::url('public/img/data/')}}" alt="" id="foto_pengurus">
+                        </div>
+                        <div class="col-9">
+                            <input type="file" class="form-control @error('foto_pengurus') invalid @enderror" placeholder="foto_pengurus"
+                                name="foto_pengurus" id="foto_pengurus">
+                            @error('foto_pengurus') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dasar_hukum">Dasar Hukum</label>
+                        <input type="text" class="form-control @error('dasar_hukum') invalid @enderror" placeholder="dasar_hukum" name="dasar_hukum" id="dasar_hukum" value="{{old('dasar_hukum')}}">
+                        @error('dasar_hukum') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="visi">Visi</label>
+                        <textarea class="form-control tinymce-editor @error('visi') invalid @enderror" name="visi" cols="30" rows="10" id="visi">{{old('visi')}}</textarea>
+                        @error('visi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="misi">Misi</label>
+                        <textarea class="form-control tinymce-editor @error('misi') invalid @enderror" name="misi" cols="30" rows="10" id="misi">{{old('misi')}}</textarea>
+                        @error('misi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="proker">Program Kerja</label>
+                        <textarea class="form-control tinymce-editor @error('proker') invalid @enderror" name="proker" cols="30" rows="10" id="proker">{{old('proker')}}</textarea>
+                        @error('proker') <p class="mt-0 text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="informasi">Informasi</label>
+                        <textarea class="form-control tinymce-editor @error('informasi') invalid @enderror" name="informasi" cols="30" rows="10" id="informasi">{{old('informasi')}}</textarea>
+                        @error('informasi') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                 </div>
                 <div class="modal-footer justify-content-start">

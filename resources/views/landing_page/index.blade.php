@@ -11,13 +11,14 @@ Home
             <li data-target="#myCarousel" data-slide-to="1" class=""></li>
             <li data-target="#myCarousel" data-slide-to="2" class=""></li>
             <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="4" class=""></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="first-slide"
-                    src="{{Storage::url('public/img/assets/dashboard1.png')}}"
+                    src="{{Storage::url('public/img/assets/bg 1.png')}}"
                     alt="First slide"
-                    style="width: 100%; height: auto; object-fit: cover; top: -120px">
+                    style="width: 100%; height: auto; object-fit: cover;">
                 {{-- <div class="container">
                     <div class="carousel-caption" style="bottom: 30%;">
                         <img src="{{Storage::url('public/img/assets/dema.png')}}" alt="dema fst">
@@ -25,11 +26,11 @@ Home
                     </div>
                 </div> --}}
             </div>
-                <div class="carousel-item">
+            <div class="carousel-item">
                 <img class="second-slide"
-                    src="{{Storage::url('public/img/assets/dashboard2.png')}}"
+                    src="{{Storage::url('public/img/assets/bg 2.png')}}"
                     alt="second slide"
-                    style="width: 100%; height: auto; object-fit: cover; top: -120px">
+                    style="width: 100%; height: auto; object-fit: cover;">
                 {{-- <div class="container">
                     <div class="carousel-caption" style="bottom: 30%;">
                         <img src="{{Storage::url('public/img/assets/sema.png')}}" alt="sema fst">
@@ -37,11 +38,11 @@ Home
                     </div>
                 </div> --}}
             </div>
-                    <div class="carousel-item">
+            <div class="carousel-item">
                 <img class="third-slide"
-                    src="{{Storage::url('public/img/assets/dashboard3.png')}}"
+                    src="{{Storage::url('public/img/assets/bg 3.png')}}"
                     alt="third slide"
-                    style="width: 100%; height: auto; object-fit: cover; top: -120px">
+                    style="width: 100%; height: auto; object-fit: cover;">
                 {{-- <div class="container">
                     <div class="carousel-caption" style="bottom: 30%;">
                         <img src="{{Storage::url('public/img/assets/mtk.png')}}" alt="hmps mtk">
@@ -49,9 +50,21 @@ Home
                     </div>
                 </div> --}}
             </div>
-                    <div class="carousel-item">
+            <div class="carousel-item">
                 <img class="third-slide"
-                    src="{{Storage::url('public/img/assets/dashboard4.png')}}"
+                    src="{{Storage::url('public/img/assets/bg 4.png')}}"
+                    alt="third slide"
+                    style="width: 100%; height: auto; object-fit: cover;">
+                {{-- <div class="container">
+                    <div class="carousel-caption" style="bottom: 30%;">
+                        <img src="{{Storage::url('public/img/assets/hmpsi.png')}}" alt="hmps si">
+                        <h3 class="text-bold mt-2">HMPS SI</h3>
+                    </div>
+                </div> --}}
+            </div>
+            <div class="carousel-item">
+                <img class="third-slide"
+                    src="{{Storage::url('public/img/assets/bg 5.png')}}"
                     alt="third slide"
                     style="width: 100%; height: auto; object-fit: cover;">
                 {{-- <div class="container">
@@ -80,13 +93,15 @@ Home
         <div class="col-12 d-flex justify-content-center mt-3 flex-wrap">
             @foreach ($berita_list as $berita)   
                 <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top"
-                            alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;object-fit: cover;"
-                            src="{{Storage::url('public/img/data/'.$berita->gambar)}}"
-                            data-holder-rendered="true">
+                    <div class="card mb-4 box-shadow shadow-md rounded-md">
+                        <a href="{{ route('landing_page.read_postingan', ['id'=>$berita->id]) }}">
+                            <img class="card-img-top"
+                                alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;object-fit: cover;"
+                                src="{{Storage::url('public/img/data/'.$berita->gambar[0]->gambar)}}"
+                                data-holder-rendered="true">
+                        </a>
                         <div class="card-body">
-                            <p class="card-text">{{$berita->judul}}</p>
+                            <a style="color: black" href="{{ route('landing_page.read_postingan', ['id'=>$berita->id]) }}"><p class="card-text ">{{$berita->judul}}</p></a>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <span>{{\Carbon\Carbon::parse($berita->tgl_post)->format('j F Y')}}</span>
@@ -160,10 +175,10 @@ Home
                                 @method('POST')
                                 @csrf
                                 <div class="form-group mb-1">
-                                    <input type="text" class="form-control form-control-sm" name="kritik" id="kritik" placeholder="Kritik">
+                                    <input type="text" class="form-control form-control-sm" name="pengirim" id="pengirim" placeholder="Pengirim">
                                 </div>
                                 <div class="form-group mb-1">
-                                    <input type="text" class="form-control form-control-sm" name="pesan" id="pesan" placeholder="Pesan">
+                                    <input type="text" class="form-control form-control-sm" name="kritik" id="kritik" placeholder="Kritik">
                                 </div>
                                 <div class="form-group mb-1">
                                     <input type="text" class="form-control form-control-sm" name="saran" id="saran" placeholder="Saran">

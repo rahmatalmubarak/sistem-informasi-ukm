@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PhotoPostingan;
 use App\Models\Postingan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,12 +53,19 @@ class PostinganController extends Controller
             'kategori' => 'required',
             'headline' => 'required',
             'tgl_post' => 'required',
-            'gambar' => 'required|image|mimes:png,jpg,svg|max:2048',
+            'gambar' => 'required',
         ]);
-        if($request->hasFile('gambar')){
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/img/data/', $gambar->hashName());
 
+        if($request->hasFile('gambar')){
+            $allowedFileExtensions = ['jpg', 'png', 'svg'];
+            $gambars = $request->file('gambar');
+            foreach ($gambars as $key => $gambar) {
+                $extension = $gambar->getClientOriginalExtension();
+                if(!in_array($extension, $allowedFileExtensions)){
+                    Alert::error('Gagal', 'Ekstension gambar tidak sesuai!');
+                    return redirect()->back();
+                }
+            }
             Postingan::create([
                 'ormawa_id' => $request->ormawa_id,
                 'judul' => $request->judul,
@@ -65,17 +73,15 @@ class PostinganController extends Controller
                 'kategori' => $request->kategori,
                 'headline' => $request->headline,
                 'tgl_post' => $request->tgl_post,
-                'gambar' => $gambar->hashName(), 
             ]);
-        }else{
-            Postingan::create([
-                'ormawa_id' => $request->ormawa_id,
-                'judul' => $request->judul,
-                'content' => $request->content,
-                'kategori' => $request->kategori,
-                'headline' => $request->headline,
-                'tgl_post' => $request->tgl_post,
-            ]);
+            $postingan = Postingan::orderBy('id', 'desc')->first();
+            foreach ($gambars as $gambar) {
+                $gambar->storeAs('public/img/data/', $gambar->hashName());
+                PhotoPostingan::create([
+                    'postingan_id' => $postingan->id,
+                    'gambar' => $gambar->hashName()
+                ]);
+            }
         }
 
         Alert::success('Berhasil', 'Data Berhasil Disimpan!');
@@ -125,12 +131,24 @@ class PostinganController extends Controller
             'headline' => 'required',
             'tgl_post' => 'required',
         ]);
-
+        
         if ($request->hasFile('gambar')) {
-            Storage::delete('public/img/data/', $postingan->gambar);
-
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/img/data/', $gambar->hashName());
+            $allowedFileExtensions = ['jpg', 'png', 'svg'];
+            $gambars = $request->file('gambar');
+            foreach ($gambars as $key => $gambar) {
+                $extension = $gambar->getClientOriginalExtension();
+                if (!in_array($extension, $allowedFileExtensions)) {
+                    Alert::error('Gagal', 'Ekstension gambar tidak sesuai!');
+                    return redirect()->back();
+                }
+            }
+            foreach ($gambars as $gambar) {
+                $gambar->storeAs('public/img/data/', $gambar->hashName());
+                PhotoPostingan::create([
+                    'postingan_id' => $postingan->id,
+                    'gambar' => $gambar->hashName()
+                ]);
+            }
 
             $postingan->update([
                 'ormawa_id' => $request->ormawa_id,
@@ -139,9 +157,9 @@ class PostinganController extends Controller
                 'kategori' => $request->kategori,
                 'headline' => $request->headline,
                 'tgl_post' => $request->tgl_post,
-                'gambar' => $gambar->hashName(),
             ]);
-        } else {
+            
+        }else{
             $postingan->update([
                 'ormawa_id' => $request->ormawa_id,
                 'judul' => $request->judul,
@@ -168,6 +186,19 @@ class PostinganController extends Controller
         Storage::delete('public/img/data/', $postingan->gambar);
         Postingan::destroy($id);
         Alert::success('Berhasil', 'Data Berhasil Dihapus!');
-        return redirect()->route('postingan.index');
+        return response()->json(['message' => 'success']);
+    }
+
+    public function removeImage(Request $request)
+    {
+        $postingan = PhotoPostingan::where('gambar', $request->slug)
+                        ->where('postingan_id', $request->postingan_id)
+                        ->first();
+        Storage::delete('public/img/data/', $postingan->gambar);
+        $postingan->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Gambar Berhasil dihapus'
+        ]);
     }
 }

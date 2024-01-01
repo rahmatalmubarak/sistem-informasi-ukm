@@ -18,9 +18,8 @@ class LandingPageController extends Controller
         $postingan_list = Postingan::orderBy('id', 'desc')->paginate(6);
 
         $pengumuman_list = Postingan::where('kategori', 'pengumuman')->orderBy('id', 'desc')->paginate(4);
-        $berita_list = Postingan::whereNot('kategori', 'agenda')
+        $berita_list = Postingan::whereNot('kategori', 'berita')
                                 ->orderBy('id', 'desc')->paginate(6);
-
         $agenda_list = Postingan::where('kategori', 'agenda')->orderBy('id', 'desc')->paginate(5);
         return view('landing_page.index', compact([
             'postingan_list',
@@ -56,29 +55,9 @@ class LandingPageController extends Controller
 
     public function detail_ormawa($slug)
     {
-        switch ($slug) {
-            case 'SEMA-FST':
-                $view = 'landing_page.ormawa.sema-fst';
-                break;
-            case 'DEMA-FST':
-                $view = 'landing_page.ormawa.dema-fst';
-                break;
-            case 'HMPS-SI':
-                $view = 'landing_page.ormawa.hmps-si';
-                break;
-            case 'HMPS-MTK':
-                $view = 'landing_page.ormawa.hmps-mtk';
-                break;
-            // Optional jika menambah ormawa baru
-            // case 'Nama-Ormawa': // Silahkan tambahkan nama ormawa dipisah dengan -
-            //     $view = 'landing_page.ormawa.nama-file'; // Letak file di folder landing_page/ormawa/nama-file
-            //     break;
-            default:
-                $view = 'landing_page.ormawa.not-found';
-                break;
-                
-        }
-        return view($view);
+       $slug = str_replace('-',' ',$slug);
+       $ormawa = Ormawa::where('nama', $slug)->first();
+       return view('landing_page.ormawa.detail-ormawa', compact('ormawa'));
     }
 
     public function daftar_pengurus(Request $request)
@@ -166,7 +145,7 @@ class LandingPageController extends Controller
         Message::create([
             'kritik' => $request->kritik,
             'saran' => $request->saran,
-            'pesan' => $request->pesan,
+            'pengirim' => $request->pengirim,
             'is_read' => 0
         ]);
 
