@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             PendaftarSeeder::class,
             PostinganSeeder::class,
             KegiatanSeeder::class,
-            PhotoPostinganSeeder::class
+            PhotoPostinganSeeder::class,
+            InformasiOrmawaSeeder::class,
         ]);
     }
 }
