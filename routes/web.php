@@ -36,7 +36,7 @@ Route::get('/postingan', [LandingPageController::class, 'postingan'])->name('lan
 Route::get('/ormawa', [LandingPageController::class, 'ormawa'])->name('landing_page.ormawa');
 Route::get('/pengurus/pengurus-periode', [LandingPageController::class, 'pengurus'])->name('landing_page.pengurus');
 Route::get('/kontak', [LandingPageController::class, 'kontak'])->name('landing_page.kontak');
-Route::get('/home/read-postingan/{id}', [LandingPageController::class, 'read_postingan'])->name('landing_page.read_postingan');
+Route::get('/postingan/read-postingan/{id}', [LandingPageController::class, 'read_postingan'])->name('landing_page.read_postingan');
 Route::get('/home/pencarian/postingan', [LandingPageController::class, 'cari'])->name('landing_page.postingan.cari');
 Route::get('/pengurus/daftar-pengurus', [LandingPageController::class, 'daftar_pengurus'])->name('landing_page.daftar_pengurus');
 Route::get('/pengurus/daftar-pengurus/cari', [LandingPageController::class, 'cari_pengurus'])->name('landing_page.cari_pengurus');
