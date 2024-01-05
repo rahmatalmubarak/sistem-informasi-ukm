@@ -497,7 +497,8 @@
           confirmButtonText: "Ya, hapus!",
           closeOnConfirm: false
       }).then((result) => {
-        if (result.isConfirmed) {
+        console.log(result);
+        if (result.isConfirmed || result.value) {
               $.ajax({
                   url: url,
                   type: "DELETE",
