@@ -1,14 +1,14 @@
 @extends('landing_page.templates.main')
-
-@section('title')
-Open Recruitment
-@endsection
-
-@section('content')
 @php
     use App\Models\Ormawa;
     $ormawa = Ormawa::where('id', $ormawa_id)->first();
 @endphp
+@section('title')
+Open Recruitment Pengurus {{$ormawa->nama}} 2023-2024 Fakultas Sains dan Teknologi
+@endsection
+
+@section('content')
+
 <div class="row pt-3">
     <div class="col-12 bg-dark d-flex justify-content-center align-items-center text-center w-full height-25" style="height: 130px;">
         <span class="text-bold" style="font-size: 20px">OPEN RECRUITMENT PENGURUS {{$ormawa->nama}} 2023-2024 FAKULTAS SAINS DAN TEKNOLOGI 👥</span>

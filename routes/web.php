@@ -85,7 +85,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/dashboard/laporan/{id}/update', [LaporanController::class, 'update'])->name('laporan.update');
     Route::delete('/dashboard/laporan/{id}/delete', [LaporanController::class, 'destroy'])->name('laporan.delete');
     Route::get('/dashboard/laporan/{id}/detail', [LaporanController::class, 'show'])->name('laporan.detail');
-    Route::get('/dashboard/laporan/{id}/download', [LaporanController::class, 'download'])->name('laporan.download');
 
     // Pesan
     Route::get('/dashboard/pesan', [PesanController::class, 'index'])->name('pesan.index');
@@ -141,7 +140,6 @@ Route::middleware(['auth', 'role:super admin'])->group(function() {
     Route::put('/dashboard/status-laporan/{id}/update-status', [StatusLaporanController::class, 'updateStatus'])->name('status_laporan.update-status');
     Route::get('/dashboard/status-laporan', [StatusLaporanController::class, 'index'])->name('status_laporan.index');
     Route::get('/dashboard/status-laporan/cari', [StatusLaporanController::class, 'cari'])->name('status_laporan.cari');
-    Route::get('/dashboard/status-laporan/{id}/download', [StatusLaporanController::class, 'download'])->name('status_laporan.download');
 
     // Kegiatan
     Route::get('/dashboard/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
@@ -173,6 +171,12 @@ Route::middleware(['auth', 'role:super admin,admin'])->group(function() {
     // Status laporan
 
     Route::get('/dashboard/status-laporan/{id}/detail', [StatusLaporanController::class, 'show'])->name('status_laporan.detail');
+
+
+    Route::get('/dashboard/laporan/{id}/download', [LaporanController::class, 'download'])->name('laporan.download');
+
+
+    Route::get('/dashboard/status-laporan/{id}/download', [StatusLaporanController::class, 'download'])->name('status_laporan.download');
 });
 
 

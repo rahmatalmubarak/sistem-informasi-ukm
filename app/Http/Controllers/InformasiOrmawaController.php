@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InformasiOrmawa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InformasiOrmawaController extends Controller
 {
@@ -58,8 +59,9 @@ class InformasiOrmawaController extends Controller
                 $foto->storeAs('public/img/data/', $foto->hashName());
                 Storage::delete('public/img/data/' . $informasi->foto_pengurus);
                 $request->foto_pengurus = $foto->hashName();
+            }else{
+                $request->foto_pengurus = $informasi->foto_pengurus;
             }
-            $request->foto_pengurus = $informasi->foto_pengurus;
             $informasi->update([
                 'dasar_hukum' => $request->dasar_hukum,
                 'visi' => $request->visi,
@@ -68,10 +70,11 @@ class InformasiOrmawaController extends Controller
                 'proker' => $request->proker,
                 'foto_pengurus' => $request->foto_pengurus,
             ]);
+            Alert::success('Berhasil', 'Data Berhasil Diubah!');
         }else{
             InformasiOrmawa::create($request->all());
+            Alert::success('Berhasil', 'Data Berhasil Ditambahkan!');
         }
-
         return redirect()->back();
     }
 }

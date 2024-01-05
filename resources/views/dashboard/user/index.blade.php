@@ -172,7 +172,7 @@ User
                         <label for="password">Password</label>
                         <div class="d-flex">
                             <input type="password" class="form-control @error('password') invalid @enderror" placeholder="Password" name="password" id="password2" value="{{old('password')}}">
-                            <span class="password-show">
+                            <span class="password-show-edit">
                                 <i class="fa fa-eye" id="togglePassword2" style="cursor: pointer"></i>
                             </span>
                             @error('password') <p class="mt-0 text-danger">{{$message}}</p>@enderror

@@ -53,7 +53,6 @@ class PostinganController extends Controller
             'kategori' => 'required',
             'headline' => 'required',
             'tgl_post' => 'required',
-            'gambar' => 'required',
         ]);
 
         if($request->hasFile('gambar')){
@@ -82,6 +81,15 @@ class PostinganController extends Controller
                     'gambar' => $gambar->hashName()
                 ]);
             }
+        }else{
+            Postingan::create([
+                'ormawa_id' => $request->ormawa_id,
+                'judul' => $request->judul,
+                'content' => $request->content,
+                'kategori' => $request->kategori,
+                'headline' => $request->headline,
+                'tgl_post' => $request->tgl_post,
+            ]);
         }
 
         Alert::success('Berhasil', 'Data Berhasil Disimpan!');

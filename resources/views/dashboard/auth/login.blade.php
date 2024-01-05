@@ -123,6 +123,7 @@
         this.classList.toggle('fa-eye-slash');
       });
     </script>
+    @include('vendor.sweetalert.alert')
 </body>
 
 </html>

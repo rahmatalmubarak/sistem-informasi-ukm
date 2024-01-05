@@ -31,6 +31,18 @@
               $('#nama_file').text(filename);
           });
       });
+        var speed=300;
+        var refresh=null;
+        let txt = $('title').text();
+        function action() {
+        document.title=txt; 
+        txt=txt.substring(1,txt.length)+txt.charAt(0)
+        refresh=setTimeout("action()",speed);}
+        $(document).ready(function() {
+          if(txt.length > 25){
+            action();
+          }
+        });
     </script>
 </body>
 

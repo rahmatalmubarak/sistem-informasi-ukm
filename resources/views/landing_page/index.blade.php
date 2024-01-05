@@ -94,10 +94,15 @@ Home
             @foreach ($berita_list as $berita)   
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow shadow-md rounded-md">
+                        
                         <a href="{{ route('landing_page.read_postingan', ['id'=>$berita->id]) }}">
                             <img class="card-img-top"
                                 alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;object-fit: cover;"
-                                src="{{Storage::url('public/img/data/'.$berita->gambar[0]->gambar)}}"
+                                @if (count($berita->gambar) > 0)
+                                    src="{{Storage::url('public/img/data/'.$berita->gambar[0]->gambar)}}"
+                                @else
+                                    src="{{Storage::url('public/img/data/no_pict.jpg')}}"
+                                @endif
                                 data-holder-rendered="true">
                         </a>
                         <div class="card-body">

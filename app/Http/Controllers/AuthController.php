@@ -25,7 +25,12 @@ class AuthController extends Controller
         
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             if(Auth::user()->role->id != $request->role_id){
-                Alert::error('Gagal', 'Role kamu bukan '. Auth::user()->role->nama);
+                Auth::logout();
+                if($request->role_id == '1' ){
+                    Alert::error('Gagal', 'Role kamu bukan Super Admin');
+                }else{
+                    Alert::error('Gagal', 'Role kamu bukan Admin');
+                }
                 return redirect()->route('auth.login');
             }
             $request->session()->regenerate();

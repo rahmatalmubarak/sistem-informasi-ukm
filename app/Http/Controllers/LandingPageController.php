@@ -18,7 +18,7 @@ class LandingPageController extends Controller
         $postingan_list = Postingan::orderBy('id', 'desc')->paginate(6);
 
         $pengumuman_list = Postingan::where('kategori', 'pengumuman')->orderBy('id', 'desc')->paginate(4);
-        $berita_list = Postingan::whereNot('kategori', 'berita')
+        $berita_list = Postingan::whereNot('kategori', 'pengumuman')
                                 ->orderBy('id', 'desc')->paginate(6);
         $agenda_list = Postingan::where('kategori', 'agenda')->orderBy('id', 'desc')->paginate(5);
         return view('landing_page.index', compact([

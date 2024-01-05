@@ -65,6 +65,15 @@
         right: 4%;
   }
 
+  .password-show-edit {
+        background-color: transparent;
+        display: block;
+        position: absolute;
+        z-index: 999999;
+        top: 31%;
+        right: 4%;
+  }
+
   #remove-image:hover {
     color: #e23939;
   }
@@ -153,22 +162,24 @@
 
             var userUrlUpdate = '{{route('user.update', ':queryId')}}';
             userUrlUpdate = userUrlUpdate.replace(':queryId', id);
-
+          
             $.ajax({
                 url: userUrlGet,
                 type: 'GET',
                 success: function(data) {
+                  console.log(data.user.password);
                   $('#username').val(data.user.username);
+                  $('#password2').val(data.user.password);
                   $('#email').val(data.user.email);
                   
                   var roles = $('#role_id_edit option[value="'+ data.user.role_id +'"]').prop('selected', true);
                   var role = $('#role_id_edit').find(':selected').val()
                   if(role == '1'){
                     $('#admin_ormawa_edit').hide();
-                    $('.password-show').css({'top' : '37%'});
+                    $('.password-show-edit').css({'top' : '37%'});
                   }else{
                     $('#admin_ormawa_edit').show();
-                    $('.password-show').css({'top' : '31%'});
+                    $('.password-show-edit').css({'top' : '31%'});
                   }
 
                   $('#ormawa_id_edit option[value="'+ data.user.ormawa_id +'"]').prop('selected', true);
@@ -224,14 +235,14 @@
 
             $('#ormawa_id').val(id);
 
-            $('#detail-ormawa').modal('show');
-
             $('#foto_pengurus').prop('src', url_foto);
             $('#dasar_hukum').val('');
             $('#visi').val('');
             $('#misi').val('');
             $('#proker').val('');
             $('#informasi').val('');
+            
+            $('#detail-ormawa').modal('show');
 
             $('#detailOrmawa').attr('action',informasiOrmawaUrlUpdate );
             $.ajax({
@@ -243,12 +254,12 @@
                     if(!foto_pengurus.includes(data.informasi.foto_pengurus)){
                       foto_pengurus = foto_pengurus + data.informasi.foto_pengurus;
                     }
-                    $('#foto_pengurus').prop('src', foto_pengurus);
-                    $('#dasar_hukum').val(data.informasi.dasar_hukum);
-                    $('#visi').val(data.informasi.visi);
-                    $('#misi').val(data.informasi.misi);
-                    $('#proker').val(data.informasi.proker);
-                    $('#informasi').val(data.informasi.informasi);
+                      $('#foto_pengurus').prop('src', foto_pengurus);
+                      $('#dasar_hukum').val(data.informasi.dasar_hukum);
+                      tinymce.get('visi').setContent(data.informasi.visi);
+                      tinymce.get('misi').setContent(data.informasi.misi);
+                      tinymce.get('proker').setContent(data.informasi.proker);
+                      tinymce.get('informasi').setContent(data.informasi.informasi);
                   }
 
                 }
@@ -381,6 +392,17 @@
             $('.password-show').css({'top' : '31%'});
           }
         })
+
+        $('body').change(function(){
+          var role = $('#role_id_edit').find(':selected').val()
+          if(role == '1'){
+            $('#admin_ormawa_edit').hide();
+            $('.password-show-edit').css({'top' : '37%'});
+          }else{
+            $('#admin_ormawa_edit').show();
+            $('.password-show-edit').css({'top' : '31%'});
+          }
+        })
     });
     $('body').on('click', '#remove-image', function(){
       let slug = $(this).data('slug');
@@ -417,12 +439,14 @@
             plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount', 'image'
+                'insertdatetime media table paste code help wordcount', 'image', 'a11ychecker', 'advcode', 'advlist', 'anchor', 'autolink', 'codesample', 'fullscreen', 'help',
+                'image', 'editimage', 'tinydrive', 'lists', 'link', 'media', 'powerpaste', 'preview',
+                'searchreplace', 'table', 'template', 'tinymcespellchecker', 'visualblocks', 'wordcount'
             ],
             toolbar: 'undo redo | formatselect | ' +
                 'bold italic backcolor | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ' +
-                'removeformat | help',
+                'removeformat | help | insertfile a11ycheck undo redo | bold italic | forecolor backcolor | template codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
             content_css: '//www.tiny.cloud/css/codepen.min.css'
         });
 </script>
@@ -456,14 +480,13 @@
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.js" ></script>
 <script>
  function hapus(url) {
   let token = $("meta[name='csrf-token']").attr("content");
-  console.log(token);
       swal.fire({
           title: "Apakah anda yakin ?",
           text: "Data yang sudah terhapus tidak dapat dikembalikan kembali.",
@@ -474,19 +497,19 @@
           confirmButtonText: "Ya, hapus!",
           closeOnConfirm: false
       }).then((result) => {
-        if (result) {
-          console.log(result);
-          $.ajax({
-                    url: url,
-                    type: "DELETE",
-                    cache: false,
-                    data: {
-                        "_token": token
-                    },
-                    success:function(response){ 
-                        window.location.reload();
-                    }
-                });
+        if (result.isConfirmed) {
+              $.ajax({
+                  url: url,
+                  type: "DELETE",
+                  cache: false,
+                  data: {
+                      "_token": token
+                  },
+                  success:function(response){ 
+                    console.log(response);
+                      window.location.reload();
+                  }
+              });
         }
           // location.href = route;
       })

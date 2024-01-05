@@ -21,16 +21,18 @@
             Y')}}</span>
     </div>
     <div class="col-12 d-flex justify-content-center mt-3">
-        <div class="col-md-6">
-            @foreach ($postingan->gambar as $gambar)
-            <div class="card mb-4 box-shadow">
-                <img class="card-img-top"
-                    data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-                    alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block; object-fit: cover;"
-                    src="{{Storage::url('public/img/data/'.$gambar->gambar)}}" data-holder-rendered="true">
-            </div>
-            @endforeach
-        </div>
+        @if (isset($postingan->gambar))
+            <div class="col-md-6">
+                @foreach ($postingan->gambar as $gambar)
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top"
+                        data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
+                        alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block; object-fit: cover;"
+                        src="{{Storage::url('public/img/data/'.$gambar->gambar)}}" data-holder-rendered="true">
+                </div>
+                @endforeach
+            </div>  
+        @endif
     </div>
     <div class="col-12 mt-3 d-flex px-5 mb-3">
         {!! $postingan->content !!}
@@ -43,7 +45,12 @@
                 <a href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">
                     <img class="card-img-top" alt="Thumbnail [100%x225]"
                         style="height: 225px; width: 100%; display: block;object-fit: cover;"
-                        src="{{Storage::url('public/img/data/'.$postingan->gambar[0]->gambar)}}" data-holder-rendered="true">
+                        @if (count($postingan->gambar) > 0)
+                            src="{{Storage::url('public/img/data/'.$postingan->gambar[0]->gambar)}}"
+                        @else
+                            src="{{Storage::url('public/img/data/no_pict.jpg')}}"
+                        @endif
+                        data-holder-rendered="true">
                 </a>
                 <div class="card-body">
                     <a style="color: black" href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">

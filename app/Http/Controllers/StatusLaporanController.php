@@ -6,6 +6,7 @@ use App\Models\Laporan;
 use App\Models\StatusLaporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StatusLaporanController extends Controller
 {
@@ -80,6 +81,7 @@ class StatusLaporanController extends Controller
                 'catatan' => $request->catatan
             ]);
         }
+        Alert::success('Berhasil', 'SK berhasil di upload!');
         return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
@@ -100,7 +102,7 @@ class StatusLaporanController extends Controller
         $status_laporan->update([
             'catatan' => $request->catatan
         ]);
-
+        Alert::success('Berhasil', 'Catatan Berhasil Ditambahkan!');
         return redirect()->route('status_laporan.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
@@ -127,10 +129,12 @@ class StatusLaporanController extends Controller
     {
         $status_laporan = StatusLaporan::find($id);
         $isAktif = 0;
-        if($status_laporan->status == 2){
+        if($status_laporan->status == 2 || $status_laporan->status == 0){
+            Alert::success('Berhasil', 'Laporan Disetujui!');
             $isAktif = 1;
         }else{
             $isAktif = 2;
+            Alert::success('Berhasil', 'Laporan Ditolak!');
         }
         $status_laporan->update([
             'status' => $isAktif

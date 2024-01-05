@@ -24,7 +24,7 @@ Buat Postingan
                                         <option value="">--Kategori--</option>
                                         <option value="berita" @if (old('kategori') == 'berita') selected @endif>Berita</option>
                                         <option value="pengumuman" @if (old('kategori') == 'pengumuman') selected @endif>Pengumuman</option>
-                                        <option value="agenda kegiatan" @if (old('kategori') == 'agenda kegiatan') selected @endif>Agenda Kegiatan</option>
+                                        <option value="agenda" @if (old('kategori') == 'agenda') selected @endif>Agenda Kegiatan</option>
                                     </select>
                                     @error('kategori') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                                 </div>

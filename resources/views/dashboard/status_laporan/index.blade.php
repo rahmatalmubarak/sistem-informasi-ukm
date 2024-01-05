@@ -70,10 +70,20 @@ Status Laporan
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-white" data-target="#edit-sk"
-                                                        data-item-id="{{$laporan->statusLaporan->id}}" @if ($laporan->statusLaporan->status == 1) id="show-sk"  @endif>
-                                                        <i class="nav-icon fas fa-download @if($laporan->statusLaporan->sk) text-blue @endif"></i>
-                                                    </button>
+                                                    @if ($laporan->statusLaporan->status == 2 || $laporan->statusLaporan->sk == null)
+                                                        <button type="submit" class="btn btn-white"
+                                                            data-item-id="{{$laporan->statusLaporan->id}}" @if ($laporan->statusLaporan->status == 1) id="show-sk" @endif >
+                                                            <i class="nav-icon fas fa-download @if($laporan->statusLaporan->status == 1 && $laporan->statusLaporan->sk != null ) text-blue @endif"></i>
+                                                        </button>
+                                                    @else
+                                                        <form action="{{ route('status_laporan.download', ['id'=>$laporan->id]) }}" method="get">
+                                                            @method('GET')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-white ">
+                                                                <i class="nav-icon fas fa-download text-blue"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-white" data-target="#edit-catatan" data-item-id="{{$laporan->statusLaporan->id}}" @if ($laporan->statusLaporan->status == 1) id="show-catatan" @endif>

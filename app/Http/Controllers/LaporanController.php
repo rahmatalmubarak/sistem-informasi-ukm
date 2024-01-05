@@ -56,31 +56,27 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'ormawa_id' => 'required',
-                'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
-            ]);
-            $file = $request->file('file');
-            $fileName = explode('.', $file->getClientOriginalName())[0];
-            $file->storeAs('public/file/data/', $file->hashName());
-            Laporan::create([
-                'judul' => $fileName,
-                'file' => $file->hashName(),
-                'ormawa_id' => $request->ormawa_id,
-            ]);
+        $request->validate([
+            'ormawa_id' => 'required',
+            'file' => 'required|mimes:docx,doc,pdf,xlsx|max:10000',
+        ]);
+        $file = $request->file('file');
+        $fileName = explode('.', $file->getClientOriginalName())[0];
+        $file->storeAs('public/file/data/', $file->hashName());
+        Laporan::create([
+            'judul' => $fileName,
+            'file' => $file->hashName(),
+            'ormawa_id' => $request->ormawa_id,
+        ]);
 
-            $data = Laporan::latest('created_at')->first();
-            StatusLaporan::create([
-                'laporan_id' => $data->id,
-                'status' => 0
-            ]);
-            // DB::commit();
-            Alert::success('Berhasil', 'Data Berhasil Disimpan!');
-            return redirect()->route('laporan.index');
-        } catch (Exception $th) {
-            // DB::rollBack();
-        }
+        $data = Laporan::latest('created_at')->first();
+        StatusLaporan::create([
+            'laporan_id' => $data->id,
+            'status' => 0
+        ]);
+        // DB::commit();
+        Alert::success('Berhasil', 'Data Berhasil Disimpan!');
+        return redirect()->route('laporan.index');
     }
 
     /**

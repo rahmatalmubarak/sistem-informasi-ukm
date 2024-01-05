@@ -36,6 +36,9 @@ Laporan
                                         <input type="file" class="custom-file-input" name="file" id="file">
                                     </div>
                                 </div>
+                                @error('file')
+                                <p class="text-danger" style="font-size: 10px">{{$message}}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary form-control">
@@ -83,17 +86,23 @@ Laporan
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('status_laporan.download', ['id'=>$laporan->statusLaporan->id]) }}" method="get">
-                                                        @method('GET')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-white">
-                                                            <i class="nav-icon fas fa-download @if ($laporan->statusLaporan->status == 1) text-blue @endif"></i>
-                                                        </button>
-                                                    </form>
+                                                    @if ($laporan->statusLaporan->sk == null)
+                                                            <button type="submit" class="btn btn-white">
+                                                                <i class="nav-icon fas fa-download"></i>
+                                                            </button>
+                                                    @else
+                                                        <form action="{{ route('status_laporan.download', ['id'=>$laporan->statusLaporan->id]) }}" method="get">
+                                                            @method('GET')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-white">
+                                                                <i class="nav-icon fas fa-download @if ($laporan->statusLaporan->status == 1) text-blue @endif"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-white" id="show-catatan" data-target="#edit-catatan" data-item-id="{{$laporan->statusLaporan->id}}">
-                                                        <i class="nav-icon fas fa-pen"></i>
+                                                        <i class="nav-icon fas fa-pen @if ($laporan->statusLaporan->catatan != null) text-blue @endif"></i>
                                                     </button>
                                                 </td>
                                                 <td class="d-flex pr-0">

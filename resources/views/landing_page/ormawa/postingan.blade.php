@@ -26,7 +26,12 @@ Postingan Ormawa
                         <a href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">
                             <img class="card-img-top" alt="Thumbnail [100%x225]"
                                 style="height: 225px; width: 100%; display: block;object-fit: cover;"
-                                src="{{Storage::url('public/img/data/'.$postingan->gambar[0]->gambar)}}" data-holder-rendered="true">
+                                @if (count($postingan->gambar) > 0)
+                                    src="{{Storage::url('public/img/data/'.$postingan->gambar[0]->gambar)}}"
+                                @else
+                                    src="{{Storage::url('public/img/data/no_pict.jpg')}}"
+                                @endif
+                                data-holder-rendered="true">
                         </a>
                         <div class="card-body">
                             <a style="color: black" href="{{ route('landing_page.read_postingan', ['id'=>$postingan->id]) }}">
