@@ -11,6 +11,10 @@
 @endsection
 
 @section('content')
+@php
+    setlocale(LC_TIME, 'id_ID');
+    \Carbon\Carbon::setLocale('id');
+@endphp
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -60,8 +64,10 @@
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$kegiatan->nama}}</td>
                                                 <td>{{$kegiatan->jenis}}</td>
-                                                <td>{{\Carbon\Carbon::parse($kegiatan->tgl_mulai)->format('j F Y')}}</td>
-                                                <td>{{\Carbon\Carbon::parse($kegiatan->tgl_selesai)->format('j F Y')}}</td>
+                                                <td>{{\Carbon\Carbon::parse($kegiatan->tgl_mulai)->isoFormat('dddd, D MMMM Y')}}<br>
+                                                {{\Carbon\Carbon::parse($kegiatan->tgl_mulai)->isoFormat('HH:mm')}} WIB</td>
+                                                <td>{{\Carbon\Carbon::parse($kegiatan->tgl_selesai)->isoFormat('dddd, D MMMM Y')}}<br>
+                                                {{\Carbon\Carbon::parse($kegiatan->tgl_selesai)->isoFormat('HH:mm')}} WIB</td>
                                                 <td>{{$kegiatan->penanggung_jawab}}</td>
                                                 <td>{{$kegiatan->tempat}}</td>
                                                 @if (Auth::user()->role->id == 2)
@@ -132,12 +138,12 @@
                     </div>
                     <div class="form-group">
                         <label for="tgl_mulai">Tanggal dan Waktu Mulai Kegiatan</label>
-                        <input type="date" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        <input type="datetime-local" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" value="{{old('tgl_mulai')}}">
                         @error('tgl_mulai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal dan Waktu Selesai Kegiatan</label>
-                        <input type="date" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        <input type="datetime-local" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" value="{{old('tgl_selesai')}}">
                         @error('tgl_selesai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
@@ -191,12 +197,12 @@
                     </div>
                     <div class="form-group">
                         <label for="tgl_mulai">Tanggal dan Waktu Mulai Kegiatan</label>
-                        <input type="date" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" id="tgl_mulai" value="{{old('tgl_mulai')}}">
+                        <input type="datetime-local" class="form-control @error('tgl_mulai') invalid @enderror" placeholder="tgl_mulai" name="tgl_mulai" id="tgl_mulai" value="{{old('tgl_mulai')}}">
                         @error('tgl_mulai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_selesai">Tanggal dan Waktu Selesai Kegiatan</label>
-                        <input type="date" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" id="tgl_selesai" value="{{old('tgl_selesai')}}">
+                        <input type="datetime-local" class="form-control @error('tgl_selesai') invalid @enderror" placeholder="tgl_selesai" name="tgl_selesai" id="tgl_selesai" value="{{old('tgl_selesai')}}">
                         @error('tgl_selesai') <p class="mt-0 text-danger">{{$message}}</p>@enderror
                     </div>
                     <div class="form-group">
