@@ -139,7 +139,6 @@ class PendaftarController extends Controller
     public function status(Request $request, $id)
     {
         $pendaftar = Pendaftar::find($id);
-        
         $pendaftar->konfirmasi = $request->konfirmasi;
         $pendaftar->save();
 

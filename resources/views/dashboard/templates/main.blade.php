@@ -301,6 +301,8 @@
             var id = $(this).data('item-id');
             var laporanUrlGet = '{{route('laporan.detail', ':queryId')}}';
             laporanUrlGet = laporanUrlGet.replace(':queryId', id);
+            var laporanUrlUpdate = '{{route('laporan.update', ':queryId')}}';
+            laporanUrlUpdate = laporanUrlUpdate.replace(':queryId', id);
             console.log(laporanUrlGet);
 
             $.ajax({
@@ -310,6 +312,8 @@
                   console.log(data);
                   $('#judul').val(data.judul);
                   $('#edit-laporan').modal('show');
+
+                  $('#editLaporan').attr('action',laporanUrlUpdate );
                 }
             });
        });

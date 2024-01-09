@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         @error('file_syarat') <p class="text-red">{{$message}}</p> @enderror
-                        <input type="hidden" name="konfirmasi" value="0">
+                        <input type="hidden" name="konfirmasi" value="3">
                     </div>
         
                     <div class="card-footer float-right">

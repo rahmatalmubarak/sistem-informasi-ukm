@@ -58,7 +58,7 @@ Pendaftar
                                                     </form>    
                                                 </td>
                                                 <td>
-                                                    @if (empty($pendaftar->konfirmasi))
+                                                    @if ($pendaftar->konfirmasi == 3)
                                                     <p class="text-sm text-warning">Pending</p>
                                                     @elseif ($pendaftar->konfirmasi == 1)
                                                     <p class="text-sm text-success">Diterima</p>
@@ -75,7 +75,7 @@ Pendaftar
                                                         <button class="btn btn-danger mr-1" type="submit"><i class="nav-icon fas fa-trash-alt"></i></button>
                                                     </form> --}}
                                                     
-                                                    <a href="{{ route('pendaftar.detail', ['id'=>$pendaftar->id]) }}" class="btn btn-warning">
+                                                    <a href="{{ route('pendaftar.detail', ['id'=>$pendaftar->id]) }}" class="btn btn-warning mr-1">
                                                         Detail
                                                     </a>
                                                     <button class="btn btn-danger" onclick="hapus('{{ route('pendaftar.delete', ['id' => $pendaftar->id]) }}')"
@@ -91,9 +91,9 @@ Pendaftar
                                 </tbody>
                             </table>
                         </div>   
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        {{$pendaftar_list->links()}}
+                        <div class="d-flex justify-content-end">
+                            {{$pendaftar_list->links()}}
+                        </div>
                     </div>
             
                 </div>

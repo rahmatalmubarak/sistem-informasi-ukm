@@ -17,8 +17,8 @@ class LandingPageController extends Controller
     {
         $postingan_list = Postingan::orderBy('id', 'desc')->paginate(6);
 
-        $pengumuman_list = Postingan::where('kategori', 'pengumuman')->orderBy('id', 'desc')->paginate(4);
-        $berita_list = Postingan::whereNot('kategori', 'pengumuman')
+        $pengumuman_list = Postingan::where('kategori', 'pengumuman')->orderBy('id', 'desc')->paginate(10);
+        $berita_list = Postingan::where('kategori', 'berita')
                                 ->orderBy('id', 'desc')->paginate(6);
         $agenda_list = Postingan::where('kategori', 'agenda')->orderBy('id', 'desc')->paginate(5);
         return view('landing_page.index', compact([
@@ -80,7 +80,8 @@ class LandingPageController extends Controller
                 # code...
                 break;
         }
-        $pengurus_list = $this->paginate($pengurus_list)->setPath('pengurus/daftar-pengurus?periode='. $request->input('periode'));
+        $pengurus_list = $this->paginate($pengurus_list)->setPath('daftar-pengurus?periode='. $request->input('periode'));
+
         return view('landing_page.daftar-pengurus', compact('pengurus_list'));
     }
 
@@ -174,7 +175,7 @@ class LandingPageController extends Controller
             // 1
             (object)[
                 'no' => 1,
-                'nama' => 'asep',
+                'nama' => 'Fulan bin fulan',
                 'ukm' => 'SEMA FST',
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
@@ -182,7 +183,7 @@ class LandingPageController extends Controller
             // 2
             (object)[
                 'no' => 2,
-                'nama' => 'Miku',
+                'nama' => 'Fulan bin fulan',
                 'ukm' => 'SEMA FST',
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
@@ -411,7 +412,486 @@ class LandingPageController extends Controller
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
             ],
-
+            // 31
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 32
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 33
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 34
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 35
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 36
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 37
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 38
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 39
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 40
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 41
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 42
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 43
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 44
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 45
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 46
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 47
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 48
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 49
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 50
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 51
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 52
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 53
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 54
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //55
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //56
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //57
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //58
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //59
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //60
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 61
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 62
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 63
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 64
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 65
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 66
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 67
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 68
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 69
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 70
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //71
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //72
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //73
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //74
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //75
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //76
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //77
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //78
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //79
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //80
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //91
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //92
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //93
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //94
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //95
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //96
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //97
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //98
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //99
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //100
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
         ];
         return $pengurus_list;
     }
@@ -659,7 +1139,486 @@ class LandingPageController extends Controller
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
             ],
-
+            // 31
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 32
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 33
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 34
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 35
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 36
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 37
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 38
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 39
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 40
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 41
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 42
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 43
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 44
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 45
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 46
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 47
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 48
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 49
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 50
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 51
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 52
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 53
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 54
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //55
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //56
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //57
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //58
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //59
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //60
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 61
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 62
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 63
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 64
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 65
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 66
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 67
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 68
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 69
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 70
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //71
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //72
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //73
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //74
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //75
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //76
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //77
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //78
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //79
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //80
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //91
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //92
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //93
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //94
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //95
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //96
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //97
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //98
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //99
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //100
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
         ];
         return $pengurus_list;
     }
@@ -906,7 +1865,486 @@ class LandingPageController extends Controller
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
             ],
-
+            // 31
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 32
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 33
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 34
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 35
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 36
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 37
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 38
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 39
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 40
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 41
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 42
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 43
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 44
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 45
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 46
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 47
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 48
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 49
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 50
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 51
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 52
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 53
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 54
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //55
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //56
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //57
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //58
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //59
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //60
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 61
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 62
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 63
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 64
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 65
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 66
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 67
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 68
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 69
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 70
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //71
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //72
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //73
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //74
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //75
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //76
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //77
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //78
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //79
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //80
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //91
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //92
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //93
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //94
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //95
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //96
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //97
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //98
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //99
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //100
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
         ];
         return $pengurus_list;
     }
@@ -1153,7 +2591,486 @@ class LandingPageController extends Controller
                 'jabatan' => 'Ketua UMUM',
                 'gambar' => 'pengurus1.jpg'
             ],
-            
+            // 31
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 32
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 33
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 34
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 35
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 36
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 37
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 38
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 39
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 40
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 41
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 42
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 43
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 44
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 45
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 46
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 47
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 48
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 49
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 50
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 51
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 52
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 53
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 54
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //55
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //56
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //57
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //58
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //59
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //60
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 61
+            (object)[
+                'no' => 1,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 62
+            (object)[
+                'no' => 2,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 63
+            (object)[
+                'no' => 3,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 64
+            (object)[
+                'no' => 4,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 65
+            (object)[
+                'no' => 5,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 66
+            (object)[
+                'no' => 6,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 67
+            (object)[
+                'no' => 7,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 68
+            (object)[
+                'no' => 8,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 69
+            (object)[
+                'no' => 9,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            // 70
+            (object)[
+                'no' => 10,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //71
+            (object)[
+                'no' => 11,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //72
+            (object)[
+                'no' => 12,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //73
+            (object)[
+                'no' => 13,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //74
+            (object)[
+                'no' => 14,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //75
+            (object)[
+                'no' => 15,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //76
+            (object)[
+                'no' => 16,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //77
+            (object)[
+                'no' => 17,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //78
+            (object)[
+                'no' => 18,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //79
+            (object)[
+                'no' => 19,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //80
+            (object)[
+                'no' => 20,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //91
+            (object)[
+                'no' => 21,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //92
+            (object)[
+                'no' => 22,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //93
+            (object)[
+                'no' => 23,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //94
+            (object)[
+                'no' => 24,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //95
+            (object)[
+                'no' => 25,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //96
+            (object)[
+                'no' => 26,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //97
+            (object)[
+                'no' => 27,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //98
+            (object)[
+                'no' => 28,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //99
+            (object)[
+                'no' => 29,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
+            //100
+            (object)[
+                'no' => 30,
+                'nama' => 'Fulan bin fulan',
+                'ukm' => 'SEMA FST',
+                'jabatan' => 'Ketua UMUM',
+                'gambar' => 'pengurus1.jpg'
+            ],
         ];
         return $pengurus_list;
     }
